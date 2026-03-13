@@ -1,0 +1,16 @@
+{
+  "name": "mrp-auggie-plugins",
+  "description": "mrpdaemon's personal auggie plugins",
+  "version": "1.0.0",
+  "plugins": [
+    {
+      "name": "mrp-dev-workflow",
+      "description": "A plugin to facilitate a task based development workflow comprised of steps to investigate, design, spec out and implement code changes.",
+      "version": "1.0.0",
+      "source": "./plugins/mrp-dev-workflow",
+      "category": "productivity",
+      "tags": ["workflow", "development", "tasks"]
+    }
+  ]
+}
+
