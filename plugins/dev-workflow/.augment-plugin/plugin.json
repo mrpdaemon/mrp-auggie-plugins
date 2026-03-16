@@ -9,6 +9,9 @@
   "skills": {
     "mrp-dev-task": {
       "path": "skills/mrp-dev-task/SKILL.md"
+    },
+    "mrp-commit-message": {
+      "path": "skills/mrp-commit-message/SKILL.md"
     }
   }
 }
