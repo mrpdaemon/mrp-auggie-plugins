@@ -14,7 +14,9 @@ Determine the task name using the first available source:
 
 Store the resolved name as `{task_name}`.
 
-Set `{task_dir}` to `/home/augment/.augment/tasks/{task_name}`.
+Read the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it.
+
+Set `{task_dir}` to `$MRP_TASKS_DIR/{task_name}`.
 
 Check that the task directory and description file exist and are non-empty:
 ```
