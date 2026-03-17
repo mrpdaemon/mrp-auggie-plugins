@@ -19,6 +19,17 @@ All commands and skills in this plugin read `MRP_TASKS_DIR` at runtime to locate
 | `MRP_TASKS_DIR` | Yes | Root directory for task files |
 | `MRP_TASK` | No | Current task name (if unset, the agent will prompt you) |
 
+## Task directory
+
+Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files belonging to a task are stored in this directory. The workflow commands read from and write to the following files:
+
+| File | Created by | Description |
+|---|---|---|
+| `task.md` | `/new-task` | Task description (required — all other commands depend on it) |
+| `research.md` | `/research-task` | Codebase research report |
+| `design.md` | `/design-task` | High-level design document |
+| `impl-spec.md` | `/spec-task` | Detailed implementation spec |
+
 ## Workflow
 
 Only `/new-task` and `/impl-task` are required. The intermediate commands (`/research-task`, `/design-task`, `/spec-task`) are optional and can be skipped — for example, you can go directly from `/new-task` to `/impl-task`. When intermediate outputs exist, later commands will use them automatically; when they don't, the commands will explore the codebase on their own.
