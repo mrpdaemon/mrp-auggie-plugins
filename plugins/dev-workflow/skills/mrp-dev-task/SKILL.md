@@ -7,6 +7,12 @@ description: Manage files for Mark's personal development task workflow. Use whe
 
 Manage files organized by development task in Mark's personal task workflow.
 
+## Task name guidance
+
+- Task names must be **kebab-case** (e.g. `foo-bar-baz`)
+- Task names are **all lowercase**
+- Task names are **concise** — at most 4 words, often 2–3 words
+
 ## Task directory structure
 
 All task files live under the directory specified by the `MRP_TASKS_DIR` environment variable:

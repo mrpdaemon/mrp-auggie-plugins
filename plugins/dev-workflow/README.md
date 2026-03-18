@@ -25,20 +25,26 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 
 | File | Created by | Description |
 |---|---|---|
-| `task.md` | `/new-task` | Task description (required — all other commands depend on it) |
+| `task.md` | `/new-task` or `/linear-task` | Task description (required — all other commands depend on it) |
 | `research.md` | `/research-task` | Codebase research report |
 | `design.md` | `/design-task` | High-level design document |
 | `impl-spec.md` | `/spec-task` | Detailed implementation spec |
 
 ## Workflow
 
-Only `/new-task` and `/impl-task` are required. The intermediate commands (`/research-task`, `/design-task`, `/spec-task`) are optional and can be skipped — for example, you can go directly from `/new-task` to `/impl-task`. When intermediate outputs exist, later commands will use them automatically; when they don't, the commands will explore the codebase on their own.
+Either `/new-task` or `/linear-task` is used to create a task, then `/impl-task` implements it. The intermediate commands (`/research-task`, `/design-task`, `/spec-task`) are optional and can be skipped — for example, you can go directly from `/new-task` to `/impl-task`. When intermediate outputs exist, later commands will use them automatically; when they don't, the commands will explore the codebase on their own.
 
 ### `/new-task`
 
 Create a new task directory and populate it with a task description.
 
 - **Writes:** `task.md` (required) — the task description, provided by the user.
+
+### `/linear-task`
+
+Create a new task directory from a Linear issue. Looks up the issue, derives a task name, and synthesizes the issue contents into a task description.
+
+- **Writes:** `task.md` (required) — the task description, synthesized from the Linear issue.
 
 ### `/research-task`
 
