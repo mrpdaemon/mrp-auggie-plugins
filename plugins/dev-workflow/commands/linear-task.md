@@ -61,13 +61,7 @@ Synthesize the Linear issue contents (`{issue_contents}`) into a task descriptio
 
 Do **not** simply copy-paste the issue contents. Synthesize them into a clear, actionable task description written in the style of the other task.md files in the workflow.
 
-Write the synthesized description to the task.md file using `cat >` via `launch-process`:
-
-```bash
-cat > {tasks_dir}/{task_name}/task.md << 'AUGEOF'
-<synthesized task description>
-AUGEOF
-```
+Write the synthesized description to `{tasks_dir}/{task_name}/task.md`.
 
 ## Step 7: Confirm
 

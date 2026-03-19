@@ -96,13 +96,7 @@ Once all key questions are answered, synthesize the answers into a coherent appr
 
 ## Step 5: Write the design document
 
-Once the user approves the approach, write a detailed design document to `{task_dir}/design.md` using `cat` via `launch-process`:
-
-```bash
-cat > {task_dir}/design.md << 'AUGEOF'
-<design contents here>
-AUGEOF
-```
+Once the user approves the approach, write a detailed design document to `{task_dir}/design.md`.
 
 The design document should include:
 

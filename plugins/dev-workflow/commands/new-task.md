@@ -53,7 +53,7 @@ vim {tasks_dir}/{task_name}/task.md
 ```
 Then wait for the user to confirm they are done editing before proceeding to Step 5.
 
-If the user chooses **"Supply the description here"**: wait for the user's next message and treat its contents as the description. Write it to the task.md file using `cat >` (or `cat >>` if appending). Do not use the `ask-user` tool, just wait for the user's next input and treat that as the description.
+If the user chooses **"Supply the description here"**: wait for the user's next message and treat its contents as the description. Write it to the task.md file. Do not use the `ask-user` tool, just wait for the user's next input and treat that as the description.
 
 ## Step 5: Confirm
 

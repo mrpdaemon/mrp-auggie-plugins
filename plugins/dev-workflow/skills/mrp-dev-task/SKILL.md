@@ -33,16 +33,7 @@ $MRP_TASKS_DIR/foo/
 
 ## Writing files
 
-**Do NOT use the `save-file` tool** to write files into the task directory. The task directory is in the user's home directory (`$MRP_TASKS_DIR/`), not under the repository root, so `save-file` will not work.
-
-Instead, use the `cat` command via `launch-process` to write file contents. For example:
-
-```bash
-mkdir -p "$MRP_TASKS_DIR/<task_name>"
-cat > "$MRP_TASKS_DIR/<task_name>/filename.ext" << 'AUGEOF'
-file contents here
-AUGEOF
-```
+Before writing any file, ensure the task directory exists by running `mkdir -p "$MRP_TASKS_DIR/<task_name>"` via `launch-process`.
 
 ## Task description
 

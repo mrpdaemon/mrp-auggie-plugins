@@ -115,13 +115,7 @@ Do **NOT** include manual verification steps.
 
 ## Step 5: Write the implementation spec
 
-Once the user approves the plan, write the complete implementation spec to `{task_dir}/impl-spec.md` using `cat` via `launch-process`:
-
-```bash
-cat > {task_dir}/impl-spec.md << 'AUGEOF'
-<spec contents here>
-AUGEOF
-```
+Once the user approves the plan, write the complete implementation spec to `{task_dir}/impl-spec.md`.
 
 The implementation spec should include:
 

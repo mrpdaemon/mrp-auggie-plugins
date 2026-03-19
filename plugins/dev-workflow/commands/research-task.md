@@ -74,13 +74,7 @@ After all explorer agents complete, synthesize their findings into a single cohe
 
 ## Step 4: Write the research report
 
-Write the synthesized report to `{task_dir}/research.md` using `cat` via `launch-process`:
-
-```bash
-cat > {task_dir}/research.md << 'AUGEOF'
-<report contents here>
-AUGEOF
-```
+Write the synthesized report to `{task_dir}/research.md`.
 
 After writing, confirm to the user that the research report has been saved and print a brief summary of the key findings.
 
