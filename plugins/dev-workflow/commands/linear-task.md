@@ -25,6 +25,10 @@ Use the `ask-user` tool to present the proposed task name to the user and ask fo
 
 Store the confirmed name as `{task_name}`.
 
+## Step 3b: Write the task name to /tmp
+
+Write the confirmed `{task_name}` to `/tmp/linear-task-name.md`. The file should contain only the task name, nothing else.
+
 ## Step 4: Resolve the tasks directory
 
 Read the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it. Store it as `{tasks_dir}`.
