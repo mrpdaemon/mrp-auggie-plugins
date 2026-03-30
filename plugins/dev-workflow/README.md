@@ -67,6 +67,12 @@ Collaborate interactively with the user on a detailed implementation spec. Explo
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
 - **Writes:** `impl-spec.md` — file-by-file change descriptions, new file specifications, dependency ordering, and testing plan.
 
+### `/recall-task`
+
+Read all files from the current task directory into context to prepare for resuming work on a task. Lists and reads every file in the task directory, then prints a summary and waits for instructions.
+
+- **Reads:** `task.md` (required), plus all other files in the task directory.
+
 ### `/impl-task`
 
 Implement all code changes, then build, test, format, and stage. Follows the implementation spec if available, otherwise falls back to the design or research for guidance.
