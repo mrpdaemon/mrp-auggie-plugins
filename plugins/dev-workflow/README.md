@@ -29,6 +29,7 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 | `research.md` | `/research-task` | Codebase research report |
 | `design.md` | `/design-task` | High-level design document |
 | `impl-spec.md` | `/spec-task` | Detailed implementation spec |
+| `verification.md` | `/plan-task-verification` | Verification plan with test cases |
 
 ## Workflow
 
@@ -67,6 +68,13 @@ Collaborate interactively with the user on a detailed implementation spec. Explo
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
 - **Writes:** `impl-spec.md` — file-by-file change descriptions, new file specifications, dependency ordering, and testing plan.
 
+### `/plan-task-verification`
+
+Create a verification plan with testing methodology and test cases for the current task. Investigates testing frameworks and tools available in the codebase, proposes a methodology, and identifies thorough test cases covering happy paths, edge cases, error conditions, and contract validation.
+
+- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
+- **Writes:** `verification.md` — testing methodology, test cases by category, and coverage notes.
+
 ### `/recall-task`
 
 Read all files from the current task directory into context to prepare for resuming work on a task. Lists and reads every file in the task directory, then prints a summary and waits for instructions.
@@ -79,3 +87,10 @@ Implement all code changes, then build, test, format, and stage. Follows the imp
 
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `impl-spec.md` (optional)
 - **Writes:** source code changes, staged via `git add -A`.
+
+### `/verify-task`
+
+Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them.
+
+- **Reads:** `task.md` (required), `verification.md` (required)
+- **Writes:** code fixes (if the user opts to diagnose and fix failures).

@@ -57,6 +57,7 @@ Each task directory can contain the following files. When a command asks you to 
 | `research.md` | `{research}` | optional | Codebase research report with context and findings. |
 | `design.md` | `{design}` | optional | High-level design document with architecture decisions. |
 | `impl-spec.md` | `{impl_spec}` | optional | Detailed implementation spec with file-by-file changes. |
+| `verification.md` | `{verification}` | optional | Verification plan with testing methodology and test cases. |
 
 **Loading a required file:** Check that the task directory and the file both exist and are non-empty:
 ```
