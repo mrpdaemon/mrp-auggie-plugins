@@ -56,4 +56,15 @@ If the user chooses **Diagnose and fix**:
 3. Re-run the failed test cases to confirm they now pass.
 4. Repeat until all previously failed test cases pass, or until the user decides to stop.
 
-If the user chooses **Stop**, end command execution.
+If the user chooses **Stop**, proceed to cleanup.
+
+## Step 5: Clean up temporary files
+
+Once verification is fully complete (all test cases pass, or the user chose to stop), clean up any temporary files that were created during the verification process. This includes but is not limited to:
+
+- Test scripts written to disk to execute test cases
+- Temporary configuration or environment files
+- Test data, fixtures, or seed data files
+- Any other files created solely for the purpose of verification
+
+Do **not** remove files that were part of the original task implementation, that existed before verification began, or that were created or modified as part of diagnosing and fixing failures in Step 4. Only remove files that the verification process itself created for the purpose of executing test cases.
