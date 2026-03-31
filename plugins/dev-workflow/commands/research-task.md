@@ -3,38 +3,9 @@ name: "[MRP] Research Task"
 description: "Investigate the codebase for the current dev task and write a research report"
 ---
 
-Load the `mrp-dev-task` skill and follow these steps:
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) as described in the skill.
 
-## Step 1: Determine the task name and read the description
-
-Determine the task name using the first available source:
-1. Check the `MRP_TASK` environment variable. If it is set and non-empty, use it.
-2. Otherwise, ask the user for the task name.
-
-Store the resolved name as `{task_name}`.
-
-Read the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it.
-
-Set `{task_dir}` to `$MRP_TASKS_DIR/{task_name}`.
-
-Check that the task directory and description file exist and are non-empty:
-```
-test -d {task_dir} && test -s {task_dir}/task.md && echo OK || echo MISSING
-```
-
-If the result is `MISSING`, tell the user:
-> The task directory or task description does not exist (or is empty). Please run the `mrp:new-task` command first.
-
-Then **stop** — do not continue.
-
-If the result is `OK`, read the task description:
-```
-cat {task_dir}/task.md
-```
-
-Store the contents as `{task_description}`.
-
-## Step 2: Check for existing research
+## Step 1: Check for existing research
 
 Check whether a research report already exists:
 ```
@@ -47,7 +18,7 @@ If the result is `EXISTS`, use the `ask-user` tool to ask the user whether they 
 
 If the user chooses **Stop**, end command execution immediately — do not continue.
 
-## Step 3: Investigate the codebase
+## Step 2: Investigate the codebase
 
 Run a thorough investigation of the codebase to uncover information relevant to the task. The goal is to gather all the context needed to later create a design and implementation plan. Do **NOT** create a plan or make any code changes — only gather information.
 
@@ -72,7 +43,7 @@ After all explorer agents complete, synthesize their findings into a single cohe
 - Constraints and risks discovered
 - Open questions that need human input before planning can proceed
 
-## Step 4: Write the research report
+## Step 3: Write the research report
 
 Write the synthesized report to `{task_dir}/research.md`.
 

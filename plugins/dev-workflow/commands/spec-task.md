@@ -3,66 +3,11 @@ name: "[MRP] Spec Task"
 description: "Collaborate on a detailed implementation spec for the current dev task and save it as impl-spec.md"
 ---
 
-Load the `mrp-dev-task` skill and follow these steps:
-
-## Step 1: Determine the task name and read the description
-
-Determine the task name using the first available source:
-1. Check the `MRP_TASK` environment variable. If it is set and non-empty, use it.
-2. Otherwise, ask the user for the task name.
-
-Store the resolved name as `{task_name}`.
-
-Read the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it.
-
-Set `{task_dir}` to `$MRP_TASKS_DIR/{task_name}`.
-
-Check that the task directory and description file exist and are non-empty:
-```
-test -d {task_dir} && test -s {task_dir}/task.md && echo OK || echo MISSING
-```
-
-If the result is `MISSING`, tell the user:
-> The task directory or task description does not exist (or is empty). Please run the `mrp:new-task` command first.
-
-Then **stop** — do not continue.
-
-If the result is `OK`, read the task description:
-```
-cat {task_dir}/task.md
-```
-
-Store the contents as `{task_description}`.
-
-## Step 2: Read existing research and design (if available)
-
-Check whether a research report exists:
-```
-test -f {task_dir}/research.md && echo EXISTS || echo NONE
-```
-
-If the result is `EXISTS`, read it:
-```
-cat {task_dir}/research.md
-```
-
-Store the contents as `{research}`.
-
-Check whether a design document exists:
-```
-test -f {task_dir}/design.md && echo EXISTS || echo NONE
-```
-
-If the result is `EXISTS`, read it:
-```
-cat {task_dir}/design.md
-```
-
-Store the contents as `{design}`.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research}` (optional), and `{design}` (optional) as described in the skill.
 
 If neither `{research}` nor `{design}` is available, you will perform your own codebase exploration as needed during the spec process. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to explore the codebase to inform the implementation spec.
 
-## Step 3: Check for existing implementation spec
+## Step 1: Check for existing implementation spec
 
 Check whether an implementation spec already exists:
 ```
@@ -75,11 +20,11 @@ If the result is `EXISTS`, use the `ask-user` tool to ask the user whether they 
 
 If the user chooses **Stop**, end command execution immediately — do not continue.
 
-## Step 4: Collaborate on the implementation spec
+## Step 2: Collaborate on the implementation spec
 
 Your goal is to work **interactively** with the user to produce a detailed implementation spec. Do **NOT** write any code. The spec must be detailed enough that an implementation agent can write code based on it without doing any significant investigation.
 
-### 4a: Explore the codebase and identify changes
+### 2a: Explore the codebase and identify changes
 
 Based on `{task_description}`, `{research}` (if available), and `{design}` (if available), identify every component, file, and module that needs to be created or modified. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to:
 
@@ -88,7 +33,7 @@ Based on `{task_description}`, `{research}` (if available), and `{design}` (if a
 - Identify existing tests that cover the affected code.
 - Identify existing end-to-end tests that are relevant to the task.
 
-### 4b: Present the implementation plan and resolve uncertainties
+### 2b: Present the implementation plan and resolve uncertainties
 
 Present the proposed set of changes to the user, organized by component/file. For each change, describe:
 
@@ -104,7 +49,7 @@ If there are any implementation decisions where you are **not very confident**, 
 
 Incorporate the user's feedback and iterate until the user is satisfied with the plan.
 
-### 4c: Define testing requirements
+### 2c: Define testing requirements
 
 For each component being changed, specify:
 
@@ -113,7 +58,7 @@ For each component being changed, specify:
 
 Do **NOT** include manual verification steps.
 
-## Step 5: Write the implementation spec
+## Step 3: Write the implementation spec
 
 Once the user approves the plan, write the complete implementation spec to `{task_dir}/impl-spec.md`.
 

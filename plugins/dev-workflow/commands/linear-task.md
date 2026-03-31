@@ -3,7 +3,7 @@ name: "[MRP] Linear Task"
 description: "Create a new dev task from a Linear issue"
 ---
 
-Load the `mrp-dev-task` skill and follow these steps:
+Load the `mrp-dev-task` skill and store `{tasks_dir}` as described in the skill. Then follow these steps:
 
 ## Step 1: Determine the Linear issue
 
@@ -23,30 +23,26 @@ Based on the Linear issue title and description, come up with a task name follow
 
 Use the `ask-user` tool to present the proposed task name to the user and ask for confirmation. Allow the user to alter the name if they prefer something different.
 
-Store the confirmed name as `{task_name}`.
+Store the confirmed name as `{task_name}`. Set `{task_dir}` to `{tasks_dir}/{task_name}`.
 
 ## Step 3b: Write the task name to /tmp
 
 Write the confirmed `{task_name}` to `/tmp/linear-task-name.md`. The file should contain only the task name, nothing else.
 
-## Step 4: Resolve the tasks directory
-
-Read the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it. Store it as `{tasks_dir}`.
-
-## Step 5: Create the task directory
+## Step 4: Create the task directory
 
 Run:
 ```
-mkdir -p {tasks_dir}/{task_name}
+mkdir -p {task_dir}
 ```
 
-## Step 6: Populate task.md
+## Step 5: Populate task.md
 
-The target file is `{tasks_dir}/{task_name}/task.md`.
+The target file is `{task_dir}/task.md`.
 
 First, check whether the file already exists:
 ```
-test -f {tasks_dir}/{task_name}/task.md && echo EXISTS || echo NEW
+test -f {task_dir}/task.md && echo EXISTS || echo NEW
 ```
 
 If the file already exists, use the `ask-user` tool to ask the user whether they want to:
@@ -65,9 +61,9 @@ Synthesize the Linear issue contents (`{issue_contents}`) into a task descriptio
 
 Do **not** simply copy-paste the issue contents. Synthesize them into a clear, actionable task description written in the style of the other task.md files in the workflow.
 
-Write the synthesized description to `{tasks_dir}/{task_name}/task.md`.
+Write the synthesized description to `{task_dir}/task.md`.
 
-## Step 7: Confirm
+## Step 6: Confirm
 
 After the file is written, print the contents of the task.md file and confirm the task was created successfully.
 

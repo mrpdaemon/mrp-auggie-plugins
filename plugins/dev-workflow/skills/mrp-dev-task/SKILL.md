@@ -35,18 +35,41 @@ $MRP_TASKS_DIR/foo/
 
 Before writing any file, ensure the task directory exists by running `mkdir -p "$MRP_TASKS_DIR/<task_name>"` via `launch-process`.
 
-## Task description
+## Variables to store
 
-The description for a task lives in the `task.md` file in the task directory.
-For example, the description for the `foo` task lives in:
+When a command loads this skill, it will instruct you which variables to resolve and store. Use the stored values as placeholders everywhere they appear in the command — substitute the actual values.
+
+### Directory and name variables
+
+- `{tasks_dir}` — The value of the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it.
+- `{task_name}` — The current task name. Determine it using the first available source:
+  1. Check the `MRP_TASK` environment variable. If it is set and non-empty, use it.
+  2. Otherwise, **ask the user** for the task name.
+- `{task_dir}` — The full path to the current task's directory: `{tasks_dir}/{task_name}`.
+
+### Task file variables
+
+Each task directory can contain the following files. When a command asks you to load one of these, follow the procedure for its type (**required** or **optional**).
+
+| File | Variable | Type | Description |
+|------|----------|------|-------------|
+| `task.md` | `{task_description}` | required | The task description — what needs to be accomplished. |
+| `research.md` | `{research}` | optional | Codebase research report with context and findings. |
+| `design.md` | `{design}` | optional | High-level design document with architecture decisions. |
+| `impl-spec.md` | `{impl_spec}` | optional | Detailed implementation spec with file-by-file changes. |
+
+**Loading a required file:** Check that the task directory and the file both exist and are non-empty:
 ```
-$MRP_TASKS_DIR/foo/task.md
+test -d {task_dir} && test -s {task_dir}/<file> && echo OK || echo MISSING
 ```
+If the result is `MISSING`, tell the user:
+> The task directory or task description does not exist (or is empty). Please run the `dev-workflow:new-task` command first.
 
-## Workflow
+Then **stop** — do not continue. If `OK`, read the file with `cat` and store its contents in the corresponding variable.
 
-1. Read the `MRP_TASKS_DIR` environment variable to get the tasks root directory.
-2. Determine the current task name from `MRP_TASK` or by asking the user.
-3. Ensure the task directory exists (`mkdir -p "$MRP_TASKS_DIR/<task_name>/"`).
-4. Read or write files in that directory as requested.
+**Loading an optional file:** Check whether the file exists:
+```
+test -f {task_dir}/<file> && echo EXISTS || echo NONE
+```
+If `EXISTS`, read it with `cat` and store its contents in the corresponding variable. If `NONE`, note that the file is not available and continue.
 
