@@ -15,6 +15,7 @@ Load the `mrp-dev-task` skill to determine the current task name and task direct
 - `research.md` — investigation report (additional problem insights)
 - `design.md` — high-level design (solution context)
 - `impl-spec.md` — implementation spec (detailed solution information)
+- `verification.md` — verification plan (testing methodology and test cases)
 
 ## Commit message structure
 
@@ -55,7 +56,7 @@ Infer from `task.md` and optionally `research.md` in the task directory. If thes
 Infer from `design.md` and optionally `impl-spec.md` in the task directory. If these files are not available, infer the solution from the changes being committed. Explain HOW this commit addresses the problem at a high level. Do NOT include code snippets or overly detailed information — summarize the key aspects of the implemented solution.
 
 #### Testing done:
-Include this section only if testing is apparent from the context (e.g. builds/compiles verified, unit tests added and executed, test plans written, end-to-end verification steps carried out). Provide a brief summary of what testing was performed. Omit this section entirely if no testing is evident.
+Always include standard testing that is apparent from the code changes (e.g. builds/compiles verified, unit tests added and executed, end-to-end verification steps carried out). Additionally, if `verification.md` exists in the task directory, assume that all testing described in it has been carried out successfully and include a summary of the types of testing from the verification plan. Omit this section entirely only if no testing is evident and no `verification.md` exists.
 
 **Example commit body:**
 ```
@@ -75,7 +76,7 @@ the CLI starts cleanly with no config file present.
 ## Workflow
 
 1. Determine the current task using the `mrp-dev-task` skill.
-2. Read available task files (`task.md`, `research.md`, `design.md`, `impl-spec.md`) from the task directory. Not all files may exist — use whatever is available.
+2. Read available task files (`task.md`, `research.md`, `design.md`, `impl-spec.md`, `verification.md`) from the task directory. Not all files may exist — use whatever is available.
 3. Examine the staged or changed files to understand the scope of the change.
 4. Compose the commit message following the structure above.
 
