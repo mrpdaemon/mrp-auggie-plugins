@@ -1,7 +1,7 @@
 ---
 name: "mrp-impl-task"
 description: "Implement all code changes for the current dev task, build, test, format, and stage"
-model: "sonnet"
+model: "claude-sonnet-4-6"
 ---
 
 Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research}` (optional), `{design}` (optional), and `{impl_spec}` (optional) as described in the skill.
