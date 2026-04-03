@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Research Task"
+name: "mrp-research-task"
 description: "Investigate the codebase for the current dev task and write a research report"
 ---
 

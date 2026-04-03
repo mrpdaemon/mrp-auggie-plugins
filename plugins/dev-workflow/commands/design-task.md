@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Design Task"
+name: "mrp-design-task"
 description: "Collaborate on a high-level design for the current dev task and save it as design.md"
 ---
 

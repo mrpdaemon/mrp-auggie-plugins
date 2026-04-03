@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Spec Task"
+name: "mrp-spec-task"
 description: "Collaborate on a detailed implementation spec for the current dev task and save it as impl-spec.md"
 ---
 

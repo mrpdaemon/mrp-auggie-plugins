@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Recall Task"
+name: "mrp-recall-task"
 description: "Read all files from the current dev task directory into context to prepare for working on the task"
 ---
 

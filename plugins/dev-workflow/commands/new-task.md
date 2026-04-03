@@ -1,5 +1,5 @@
 ---
-name: "[MRP] New Dev Task"
+name: "mrp-new-task"
 description: "Create a new dev task directory and populate its task.md"
 ---
 

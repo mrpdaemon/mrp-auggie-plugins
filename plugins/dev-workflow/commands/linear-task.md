@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Linear Task"
+name: "mrp-linear-task"
 description: "Create a new dev task from a Linear issue"
 ---
 

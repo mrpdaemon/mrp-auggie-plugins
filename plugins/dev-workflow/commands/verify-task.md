@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Verify Task"
+name: "mrp-verify-task"
 description: "Execute the verification plan for the current dev task and report results"
 ---
 

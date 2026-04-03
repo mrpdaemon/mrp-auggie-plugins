@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Implement Task"
+name: "mrp-impl-task"
 description: "Implement all code changes for the current dev task, build, test, format, and stage"
 model: "sonnet4.6"
 ---

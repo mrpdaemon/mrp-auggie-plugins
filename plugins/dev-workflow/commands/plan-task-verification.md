@@ -1,5 +1,5 @@
 ---
-name: "[MRP] Plan Task Verification"
+name: "mrp-plan-task-verification"
 description: "Create a verification plan with testing methodology and test cases for the current dev task"
 ---
 
