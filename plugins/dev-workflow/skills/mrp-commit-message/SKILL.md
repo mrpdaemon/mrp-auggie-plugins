@@ -50,7 +50,7 @@ Infer from {task_description} and optionally {research_report}. If these files a
 Infer from {design_spec} (if available), {implementation_spec} (if available) AND the diffs being committed. Explain HOW this commit addresses the problem at a high level. Do NOT include code snippets or overly detailed information — summarize the key aspects of the implemented solution.
 
 #### Testing done:
-Include testing steps that were carried out during implementation/verification (e.g. builds/compiles verified, unit tests added and executed, end-to-end verification steps carried out). Additionally, if {verification_plan} exists in the task directory, assume that all testing described in it has been carried out successfully and include a summary of the types of testing from the verification plan. Omit this section entirely only if no testing is evident and no {verification_plan} exists.
+Include testing steps that were carried out during implementation/verification (e.g. builds/compiles verified, unit tests added and executed, end-to-end verification steps carried out). Additionally, if {verification_report} exists in the task directory include a summary of the types of testing that were carried out. Omit this section entirely only if no testing is evident and no {verification_report} exists.
 
 **Example commit body:**
 ```

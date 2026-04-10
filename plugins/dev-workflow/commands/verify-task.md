@@ -56,9 +56,22 @@ If the user chooses **Diagnose and fix**:
 3. Re-run the failed test cases to confirm they now pass.
 4. Repeat until all previously failed test cases pass, or until the user decides to stop.
 
-If the user chooses **Stop**, proceed to cleanup.
+If the user chooses **Stop**, proceed to the verification report.
 
-## Step 5: Clean up temporary files
+## Step 5: Write verification report
+
+Write the verification report to `{verification_report}` in the task directory using the `save-file` tool. The report should contain:
+
+1. **Summary** — Overall result (all pass, some failures, etc.) with counts of passed, failed, and blocked test cases.
+2. **Results table** — The full results table from Step 3.
+3. **Failure details** — For each FAIL or BLOCKED test case, include:
+   - The test case name and category
+   - The expected result
+   - The actual result
+   - Root cause analysis and fix description (if diagnosed and fixed in Step 4)
+4. **Notes** — Any observations, environment issues, or caveats encountered during verification.
+
+## Step 6: Clean up temporary files
 
 Once verification is fully complete (all test cases pass, or the user chose to stop), clean up any temporary files that were created during the verification process. This includes but is not limited to:
 
