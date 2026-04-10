@@ -9,16 +9,11 @@ If neither `{research}` nor `{design}` is available, you will perform your own c
 
 ## Step 1: Check for existing implementation spec
 
-Check whether an implementation spec already exists:
-```
-test -f {task_dir}/impl-spec.md && echo EXISTS || echo NEW
-```
+Check whether the implementation spec file `{impl_spec}` already exists.
 
-If the result is `EXISTS`, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the spec from scratch
 - **Stop** and keep the existing spec
-
-If the user chooses **Stop**, end command execution immediately — do not continue.
 
 ## Step 2: Collaborate on the implementation spec
 
@@ -60,7 +55,7 @@ Do **NOT** include manual verification steps.
 
 ## Step 3: Write the implementation spec
 
-Once the user approves the plan, write the complete implementation spec to `{task_dir}/impl-spec.md`.
+Once the user approves the plan, write the complete implementation spec to `{task_dir}/{impl_spec}`.
 
 The implementation spec should include:
 

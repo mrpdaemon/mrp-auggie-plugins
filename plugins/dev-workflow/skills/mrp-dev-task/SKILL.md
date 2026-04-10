@@ -1,55 +1,17 @@
 ---
 name: mrp-dev-task
-description: Manage files for Mark's personal development task workflow. Use when asked to 'write to task directory', 'save to task directory', 'add to task directory', or any request involving reading/writing files in the current dev task directory.
+description: Manages development task artifact files and the git branch for the currently active development task. Use when asked to 'determine the current development task', 'write to task directory', 'list task files', 'determine changes done for the current development task' or any request involving reading/writing files to the task directory and determinining changes that have been done as part of the task.
 ---
 
-# MRP Dev Task File Management
+We will be working on a specific development task. The name of the task we will be working on is specified by the `MRP_TASK` environment variable. If `MRP_TASK` is not set or is empty, **ask the user** for the name of the active development task. Store the name of the current task as {task_name}.
 
-Manage files organized by development task in Mark's personal task workflow.
+# Development Task File Management
 
-## Task name guidance
+Files representing artifacts related to the current development task are stored in a task-specific directory. The root path storing all task directories is specified by the `MRP_TASKS_DIR` environment variable. If this variable is not set or is empty, there is an issue with the user's configuration, ask the user to fix it by setting this variable. Store the value of the tasks directory as {tasks_dir}.
 
-- Task names must be **kebab-case** (e.g. `foo-bar-baz`)
-- Task names are **all lowercase**
-- Task names are **concise** — at most 4 words, often 2–3 words
+## Task Artifact Files
 
-## Task directory structure
-
-All task files live under the directory specified by the `MRP_TASKS_DIR` environment variable:
-```
-$MRP_TASKS_DIR/
-```
-
-Each task has its own subdirectory. For example, a task named `foo` stores files in:
-```
-$MRP_TASKS_DIR/foo/
-```
-
-## Determining the current task
-
-1. Read the `MRP_TASKS_DIR` environment variable to get the tasks root directory. If it is not set, **stop and ask the user** to set it.
-2. Read the `MRP_TASK` environment variable to get the current task name.
-3. If `MRP_TASK` is not set or is empty, **ask the user** for the name of the current task.
-
-## Writing files
-
-Before writing any file, ensure the task directory exists by running `mkdir -p "$MRP_TASKS_DIR/<task_name>"` via `launch-process`.
-
-## Variables to store
-
-When a command loads this skill, it will instruct you which variables to resolve and store. Use the stored values as placeholders everywhere they appear in the command — substitute the actual values.
-
-### Directory and name variables
-
-- `{tasks_dir}` — The value of the `MRP_TASKS_DIR` environment variable. If it is not set or empty, **stop and ask the user** to set it.
-- `{task_name}` — The current task name. Determine it using the first available source:
-  1. Check the `MRP_TASK` environment variable. If it is set and non-empty, use it.
-  2. Otherwise, **ask the user** for the task name.
-- `{task_dir}` — The full path to the current task's directory: `{tasks_dir}/{task_name}`.
-
-### Task file variables
-
-Each task directory can contain the following files. When a command asks you to load one of these, follow the procedure for its type (**required** or **optional**).
+Artifacts related to the current development task are stored under the {tasks_dir}/{task_name} directory. Store this as {task_dir}. Each task directory may contain some of the following files. Refer to the contents of the appropriate file as needed to complete the user's requests.
 
 | File | Variable | Type | Description |
 |------|----------|------|-------------|
@@ -59,18 +21,14 @@ Each task directory can contain the following files. When a command asks you to 
 | `impl-spec.md` | `{impl_spec}` | optional | Detailed implementation spec with file-by-file changes. |
 | `verification.md` | `{verification}` | optional | Verification plan with testing methodology and test cases. |
 
-**Loading a required file:** Check that the task directory and the file both exist and are non-empty:
-```
-test -d {task_dir} && test -s {task_dir}/<file> && echo OK || echo MISSING
-```
-If the result is `MISSING`, tell the user:
-> The task directory or task description does not exist (or is empty). Please run the `dev-workflow:new-task` command first.
+# Development Task Git Branch
 
-Then **stop** — do not continue. If `OK`, read the file with `cat` and store its contents in the corresponding variable.
+Changes related to the current development branch go in the `markp/{task_name}` branch. Store the name of this branch as {task_branch}. All work that has already been done for this task (if any) would be contained in the commits between the base branch (main or master) and {task_branch}, as well as staged changes in the git index (if any) or uncommitted changes (if any).
 
-**Loading an optional file:** Check whether the file exists:
-```
-test -f {task_dir}/<file> && echo EXISTS || echo NONE
-```
-If `EXISTS`, read it with `cat` and store its contents in the corresponding variable. If `NONE`, note that the file is not available and continue.
+# Conventions
 
+## Task name guidance
+
+- Task names must be **kebab-case** (e.g. `foo-bar-baz`)
+- Task names are **all lowercase**
+- Task names are **concise** — at most 4 words, often 2–3 words

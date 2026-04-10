@@ -9,16 +9,11 @@ If `{research}` is not available, you will perform your own codebase exploration
 
 ## Step 1: Check for existing design
 
-Check whether a design document already exists:
-```
-test -f {task_dir}/design.md && echo EXISTS || echo NEW
-```
+Check whether the design document file `{design}` already exists.
 
-If the result is `EXISTS`, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the design from scratch
 - **Stop** and keep the existing design
-
-If the user chooses **Stop**, end command execution immediately — do not continue.
 
 ## Step 2: Collaborate on the high-level design
 
@@ -53,7 +48,7 @@ Once all key questions are answered, synthesize the answers into a coherent appr
 
 ## Step 3: Write the design document
 
-Once the user approves the approach, write a detailed design document to `{task_dir}/design.md`.
+Once the user approves the approach, write a detailed design document to `{task_dir}/{design}`.
 
 The design document should include:
 

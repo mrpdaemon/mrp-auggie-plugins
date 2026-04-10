@@ -7,16 +7,11 @@ Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_di
 
 ## Step 1: Check for existing verification plan
 
-Check whether a verification plan already exists:
-```
-test -f {task_dir}/verification.md && echo EXISTS || echo NEW
-```
+Check whether the verification plan file `{verification}` already exists.
 
-If the result is `EXISTS`, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the verification plan from scratch
 - **Stop** and keep the existing plan
-
-If the user chooses **Stop**, end command execution immediately — do not continue.
 
 ## Step 2: Determine testing methodology
 
@@ -58,7 +53,7 @@ Be thorough but practical — every test case should be executable using the cho
 
 ## Step 4: Write the verification plan
 
-Write the complete verification plan to `{task_dir}/verification.md`.
+Write the complete verification plan to `{task_dir}/{verification}`.
 
 The verification plan should include:
 
