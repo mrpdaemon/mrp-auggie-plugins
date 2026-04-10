@@ -24,19 +24,13 @@ Once the implementation is complete, iterate until all of the following pass:
 
 ### 2a: Build affected targets
 
-Identify all Bazel targets affected by the code changes and build them:
-```
-bazel build //path/to:target
-```
+Identify all targets affected by the code changes and build them using the project's build system. Determine the appropriate build command by examining the project's configuration files (e.g., Makefile, package.json scripts, build.gradle, Cargo.toml, BUILD files, etc.).
 
 Fix any build errors before proceeding.
 
 ### 2b: Run unit tests
 
-Run all unit tests relevant to the changed code, including any newly added tests:
-```
-bazel test //path/to:test --test_output=all
-```
+Run all unit tests relevant to the changed code, including any newly added tests. Use the project's established test runner and ensure test output is visible so failures can be diagnosed.
 
 Fix any test failures before proceeding.
 
@@ -56,10 +50,7 @@ Once all builds and tests pass:
 
 ### 3a: Format the code
 
-Run the formatter on all changed files:
-```
-bazel run //:format
-```
+Run the project's code formatter on all changed files. Determine the appropriate format command by examining the project's configuration files (e.g., Makefile, package.json scripts, formatting config files, BUILD files, etc.).
 
 ### 3b: Stage all changes
 
