@@ -90,6 +90,13 @@ Detect material changes since the last documented state, record them as a number
 - **Reads:** `task.md` (required), `design.md` (optional), `impl-spec.md` (optional), `verification.md` (optional), `iterations.md` (optional)
 - **Writes:** `iterations.md` — created or appended with a new iteration section; `design.md`, `impl-spec.md`, `verification.md` — surgically updated with cross-reference notes and content edits where affected.
 
+### `/address-task-pr-comments`
+
+Fetch unresolved PR review comments, walk through each interactively, propose and implement fixes. Uses GraphQL via the `gh` CLI to determine thread resolution status.
+
+- **Reads:** `task.md` (required) — to discover the PR URL or number.
+- **Writes:** source code changes based on approved review feedback; optionally commits and pushes via `mrp-commit-message`.
+
 ### `/verify-task`
 
 Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them.
