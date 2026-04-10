@@ -75,12 +75,6 @@ Create a verification plan with testing methodology and test cases for the curre
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
 - **Writes:** `verification.md` — testing methodology, test cases by category, and coverage notes.
 
-### `/recall-task`
-
-Read all files from the current task directory into context to prepare for resuming work on a task. Lists and reads every file in the task directory, then prints a summary and waits for instructions.
-
-- **Reads:** `task.md` (required), plus all other files in the task directory.
-
 ### `/impl-task`
 
 Implement all code changes, then build, test, format, and stage. Follows the implementation spec if available, otherwise falls back to the design or research for guidance.
