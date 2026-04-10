@@ -103,3 +103,10 @@ Execute the verification plan for the current task. Performs any required setup,
 
 - **Reads:** `task.md` (required), `verification.md` (required)
 - **Writes:** code fixes (if the user opts to diagnose and fix failures).
+
+### `/make-task-pr`
+
+Squash all commits on the task branch into a single well-messaged commit, push the branch, and create a draft GitHub PR. Uses the `mrp-commit-message` skill to generate the squash commit message. Cleans stale Git SHA references from `iterations.md` if present, and records the PR number in `task.md`.
+
+- **Reads:** `task.md` (required), `iterations.md` (optional), plus all task artifacts used by the `mrp-commit-message` skill for commit message generation.
+- **Writes:** `iterations.md` (removes stale SHA references), `task.md` (appends PR number).
