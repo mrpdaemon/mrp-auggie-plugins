@@ -17,7 +17,7 @@ If the file exists, use the `ask-user` tool to ask the user whether they want to
 
 Run a thorough investigation of the codebase to uncover information relevant to the task. The goal is to gather all the context needed to later create a design and implementation plan. Do **NOT** create a plan or make any code changes — only gather information.
 
-Launch **multiple `sub-agent-mrp-explorer` agents in parallel**. Each agent should focus on a different angle of the investigation. Decide which angles to explore based on the task description, but consider the following:
+Launch **multiple `mrp-explorer` agents in parallel**. Each agent should focus on a different angle of the investigation. Decide which angles to explore based on the task description, but consider the following:
 
 1. **Existing patterns and conventions** — Find code that already does something similar to what the task requires. Identify the patterns, abstractions, and conventions used so the eventual implementation can follow them.
 

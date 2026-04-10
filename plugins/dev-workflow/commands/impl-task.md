@@ -5,7 +5,7 @@ description: "Implement all code changes for the current dev task, build, test, 
 
 Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), `{design_spec}` (optional), and `{implementation_spec}` (optional) as described in the skill.
 
-If none of the optional files are available, you will perform your own codebase exploration as needed during implementation. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to explore the codebase.
+If none of the optional files are available, you will perform your own codebase exploration as needed during implementation. Use `codebase-retrieval` and `mrp-explorer` agents to explore the codebase.
 
 ## Step 1: Implement the code changes
 
@@ -14,7 +14,7 @@ Implement all the code changes required to complete the task described in `{task
 - If `{implementation_spec}` is available, follow it closely — it contains detailed file-by-file change descriptions, new file specifications, ordering constraints, and a testing plan.
 - If `{implementation_spec}` is not available but `{design_spec}` is, use the design document to guide your implementation approach.
 - If only `{research_report}` is available, use it for codebase context.
-- If none of the optional files are available, explore the codebase yourself using `codebase-retrieval` and `sub-agent-mrp-explorer` agents before implementing.
+- If none of the optional files are available, explore the codebase yourself using `codebase-retrieval` and `mrp-explorer` agents before implementing.
 
 Use task management tools to break the implementation into trackable sub-tasks and mark them complete as you go.
 

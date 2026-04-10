@@ -15,7 +15,7 @@ If the file exists, use the `ask-user` tool to ask the user whether they want to
 
 ## Step 2: Determine testing methodology
 
-Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), investigate how the changes introduced by this task can best be tested. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to:
+Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), investigate how the changes introduced by this task can best be tested. Use `codebase-retrieval` and `mrp-explorer` agents to:
 
 - Examine existing test infrastructure in the codebase (test frameworks, test runners, test helpers, fixtures).
 - Look at existing end-to-end tests, integration tests, and CLI-based testing patterns already in use.
