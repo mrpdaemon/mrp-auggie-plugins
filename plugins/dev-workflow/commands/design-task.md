@@ -30,7 +30,7 @@ Based on `{task_description}` and `{research_report}` (if available), identify t
 - **Integration points**: How does this interact with existing systems, feature flags, or configuration?
 - **Trade-offs**: Are there competing approaches? What are the pros and cons?
 
-If no research report was available, use `codebase-retrieval` and `mrp-explorer` agents to explore the codebase as needed to inform the design questions.
+If no research report was available, use `codebase-retrieval` and `mrp-explorer` (or `sub-agent-mrp-explorer`, whichever is available) agents to explore the codebase as needed to inform the design questions.
 
 ### 2b: Walk through questions one by one
 
