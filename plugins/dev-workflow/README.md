@@ -30,6 +30,7 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 | `design.md` | `/design-task` | High-level design document |
 | `impl-spec.md` | `/spec-task` | Detailed implementation spec |
 | `verification.md` | `/plan-task-verification` | Verification plan with test cases |
+| `iterations.md` | `/iterate-task` | Task iteration history tracking changes across iterations |
 
 ## Workflow
 
@@ -81,6 +82,13 @@ Implement all code changes, then build, test, format, and stage. Follows the imp
 
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `impl-spec.md` (optional)
 - **Writes:** source code changes, staged via `git add -A`.
+
+### `/iterate-task`
+
+Detect material changes since the last documented state, record them as a numbered iteration in `iterations.md`, and surgically update affected task artifacts to stay in sync with what was actually implemented.
+
+- **Reads:** `task.md` (required), `design.md` (optional), `impl-spec.md` (optional), `verification.md` (optional), `iterations.md` (optional)
+- **Writes:** `iterations.md` — created or appended with a new iteration section; `design.md`, `impl-spec.md`, `verification.md` — surgically updated with cross-reference notes and content edits where affected.
 
 ### `/verify-task`
 
