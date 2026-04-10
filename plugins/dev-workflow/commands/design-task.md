@@ -3,13 +3,13 @@ name: "mrp-design-task"
 description: "Collaborate on a high-level design for the current dev task and save it as design.md"
 ---
 
-Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) and `{research}` (optional) as described in the skill.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) and `{research_report}` (optional) as described in the skill.
 
-If `{research}` is not available, you will perform your own codebase exploration as needed during the design process.
+If `{research_report}` is not available, you will perform your own codebase exploration as needed during the design process.
 
 ## Step 1: Check for existing design
 
-Check whether the design document file `{design}` already exists.
+Check whether the design document file `{design_spec}` already exists.
 
 If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the design from scratch
@@ -21,7 +21,7 @@ Your goal is to work **interactively** with the user to produce a high-level des
 
 ### 2a: Identify key design questions
 
-Based on `{task_description}` and `{research}` (if available), identify the key design questions that need to be answered before an approach can be chosen. These may include:
+Based on `{task_description}` and `{research_report}` (if available), identify the key design questions that need to be answered before an approach can be chosen. These may include:
 
 - **Architecture**: Which components/services are involved? Should new ones be created or should existing ones be extended?
 - **UX**: How should the feature surface to the user? What interactions are needed?
@@ -48,7 +48,7 @@ Once all key questions are answered, synthesize the answers into a coherent appr
 
 ## Step 3: Write the design document
 
-Once the user approves the approach, write a detailed design document to `{task_dir}/{design}`.
+Once the user approves the approach, write a detailed design document to `{task_dir}/{design_spec}`.
 
 The design document should include:
 

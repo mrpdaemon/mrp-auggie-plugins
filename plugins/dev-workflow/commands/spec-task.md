@@ -3,13 +3,13 @@ name: "mrp-spec-task"
 description: "Collaborate on a detailed implementation spec for the current dev task and save it as impl-spec.md"
 ---
 
-Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research}` (optional), and `{design}` (optional) as described in the skill.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), and `{design_spec}` (optional) as described in the skill.
 
-If neither `{research}` nor `{design}` is available, you will perform your own codebase exploration as needed during the spec process. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to explore the codebase to inform the implementation spec.
+If neither `{research_report}` nor `{design_spec}` is available, you will perform your own codebase exploration as needed during the spec process. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to explore the codebase to inform the implementation spec.
 
 ## Step 1: Check for existing implementation spec
 
-Check whether the implementation spec file `{impl_spec}` already exists.
+Check whether the implementation spec file `{implementation_spec}` already exists.
 
 If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the spec from scratch
@@ -21,7 +21,7 @@ Your goal is to work **interactively** with the user to produce a detailed imple
 
 ### 2a: Explore the codebase and identify changes
 
-Based on `{task_description}`, `{research}` (if available), and `{design}` (if available), identify every component, file, and module that needs to be created or modified. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to:
+Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), identify every component, file, and module that needs to be created or modified. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to:
 
 - Locate the exact files and functions that need to change.
 - Understand existing patterns, interfaces, and conventions in those files.
@@ -55,7 +55,7 @@ Do **NOT** include manual verification steps.
 
 ## Step 3: Write the implementation spec
 
-Once the user approves the plan, write the complete implementation spec to `{task_dir}/{impl_spec}`.
+Once the user approves the plan, write the complete implementation spec to `{task_dir}/{implementation_spec}`.
 
 The implementation spec should include:
 

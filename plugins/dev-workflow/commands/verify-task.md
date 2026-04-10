@@ -3,11 +3,11 @@ name: "mrp-verify-task"
 description: "Execute the verification plan for the current dev task and report results"
 ---
 
-Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) and `{verification}` (required) as described in the skill.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) and `{verification_plan}` (required) as described in the skill.
 
 ## Step 1: Set up the test environment
 
-Follow the **Testing methodology** section of `{verification}` to perform any required setup. This may include:
+Follow the **Testing methodology** section of `{verification_plan}` to perform any required setup. This may include:
 
 - Installing tools or dependencies
 - Setting environment variables or configuration files
@@ -20,7 +20,7 @@ Do **not** proceed to test execution until all setup steps have been completed s
 
 ## Step 2: Execute test cases
 
-Work through **every** test case listed in `{verification}`, in the order they appear. For each test case:
+Work through **every** test case listed in `{verification_plan}`, in the order they appear. For each test case:
 
 1. Execute the steps exactly as described in the verification plan.
 2. Record the **actual result**.

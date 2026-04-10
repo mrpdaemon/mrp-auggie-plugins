@@ -3,11 +3,11 @@ name: "mrp-plan-task-verification"
 description: "Create a verification plan with testing methodology and test cases for the current dev task"
 ---
 
-Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research}` (optional), and `{design}` (optional) as described in the skill.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), and `{design_spec}` (optional) as described in the skill.
 
 ## Step 1: Check for existing verification plan
 
-Check whether the verification plan file `{verification}` already exists.
+Check whether the verification plan file `{verification_plan}` already exists.
 
 If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the verification plan from scratch
@@ -15,7 +15,7 @@ If the file exists, use the `ask-user` tool to ask the user whether they want to
 
 ## Step 2: Determine testing methodology
 
-Based on `{task_description}`, `{research}` (if available), and `{design}` (if available), investigate how the changes introduced by this task can best be tested. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to:
+Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), investigate how the changes introduced by this task can best be tested. Use `codebase-retrieval` and `sub-agent-mrp-explorer` agents to:
 
 - Examine existing test infrastructure in the codebase (test frameworks, test runners, test helpers, fixtures).
 - Look at existing end-to-end tests, integration tests, and CLI-based testing patterns already in use.
@@ -46,14 +46,14 @@ Cover the following categories:
 - **Happy path** — The primary expected functionality works correctly.
 - **Edge cases** — Boundary conditions, empty inputs, unusual but valid inputs.
 - **Error conditions** — Invalid inputs, missing dependencies, failure modes, and graceful error handling.
-- **Contract validation** — Verify that the changes honor the design contract and interfaces rather than testing implementation assumptions. If `{design}` is available, derive test cases from the design decisions and approach described there.
+- **Contract validation** — Verify that the changes honor the design contract and interfaces rather than testing implementation assumptions. If `{design_spec}` is available, derive test cases from the design decisions and approach described there.
 - **Regression** — Ensure existing functionality that could be affected by the changes still works correctly.
 
 Be thorough but practical — every test case should be executable using the chosen methodology.
 
 ## Step 4: Write the verification plan
 
-Write the complete verification plan to `{task_dir}/{verification}`.
+Write the complete verification plan to `{task_dir}/{verification_plan}`.
 
 The verification plan should include:
 

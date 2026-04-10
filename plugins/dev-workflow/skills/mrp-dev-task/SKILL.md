@@ -16,10 +16,10 @@ Artifacts related to the current development task are stored under the {tasks_di
 | File | Variable | Type | Description |
 |------|----------|------|-------------|
 | `task.md` | `{task_description}` | required | The task description — what needs to be accomplished. |
-| `research.md` | `{research}` | optional | Codebase research report with context and findings. |
-| `design.md` | `{design}` | optional | High-level design document with architecture decisions. |
-| `impl-spec.md` | `{impl_spec}` | optional | Detailed implementation spec with file-by-file changes. |
-| `verification.md` | `{verification}` | optional | Verification plan with testing methodology and test cases. |
+| `research.md` | `{research_report}` | optional | Codebase research report with context and findings. |
+| `design.md` | `{design_spec}` | optional | High-level design document with architecture decisions. |
+| `impl-spec.md` | `{implementation_spec}` | optional | Detailed implementation spec with file-by-file changes. |
+| `verification.md` | `{verification_plan}` | optional | Verification plan with testing methodology and test cases. |
 
 # Development Task Git Branch
 

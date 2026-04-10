@@ -7,7 +7,7 @@ Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_di
 
 ## Step 1: Check for existing research
 
-Check whether the research report file `{research}` already exists.
+Check whether the research report file `{research_report}` already exists.
 
 If the file exists, use the `ask-user` tool to ask the user whether they want to:
 - **Regenerate** the research report from scratch
@@ -40,7 +40,7 @@ After all explorer agents complete, synthesize their findings into a single cohe
 
 ## Step 3: Write the research report
 
-Write the synthesized report to `{task_dir}/{research}`.
+Write the synthesized report to `{task_dir}/{research_report}`.
 
 After writing, confirm to the user that the research report has been saved and print a brief summary of the key findings.
 
