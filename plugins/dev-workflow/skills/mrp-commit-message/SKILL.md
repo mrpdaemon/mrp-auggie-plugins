@@ -54,15 +54,15 @@ Include testing steps that were carried out during implementation/verification (
 
 **Example commit body:**
 ```
-Problem:
+**Problem:**
 The CLI crashes with a stack trace when the user's config file is missing,
 rather than falling back to default settings.
 
-Solution:
+**Solution:**
 Add a fallback path in the config loader that initializes default settings
 when no config file is found, and log a warning to inform the user.
 
-Testing done:
+**Testing done:**
 Added unit tests for the config loader fallback path. Verified manually that
 the CLI starts cleanly with no config file present.
 ```
