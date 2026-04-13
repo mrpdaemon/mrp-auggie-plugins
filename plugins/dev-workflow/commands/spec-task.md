@@ -5,7 +5,7 @@ description: "Collaborate on a detailed implementation spec for the current dev 
 
 Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), and `{design_spec}` (optional) as described in the skill.
 
-If neither `{research_report}` nor `{design_spec}` is available, you will perform your own codebase exploration as needed during the spec process. Use `codebase-retrieval` for quick lookups, and launch `mrp-explorer` (or `sub-agent-mrp-explorer`, whichever is available) sub-agents for deeper exploration to inform the implementation spec.
+If neither `{research_report}` nor `{design_spec}` is available, you will perform your own codebase exploration as needed during the spec process. Use `codebase-retrieval` for quick lookups, and launch `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`) for deeper exploration to inform the implementation spec.
 
 ## Step 1: Check for existing implementation spec
 
@@ -21,7 +21,7 @@ Your goal is to work **interactively** with the user to produce a detailed imple
 
 ### 2a: Explore the codebase and identify changes
 
-Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), identify every component, file, and module that needs to be created or modified. Use `codebase-retrieval` for quick lookups, and launch `mrp-explorer` (or `sub-agent-mrp-explorer`, whichever is available) sub-agents to:
+Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), identify every component, file, and module that needs to be created or modified. Use `codebase-retrieval` for quick lookups, and launch `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`) to:
 
 - Locate the exact files and functions that need to change.
 - Understand existing patterns, interfaces, and conventions in those files.
