@@ -83,6 +83,13 @@ Implement all code changes, then build, test, format, and stage. Follows the imp
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `impl-spec.md` (optional)
 - **Writes:** source code changes, staged via `git add -A`.
 
+### `/parallel-impl-task`
+
+Same outcome as `/impl-task`, but the coordinating agent decomposes the work into a dependency graph of implementation slices and dispatches independent slices concurrently to `mrp-builder` sub-agents, handling sequential slices itself. After all slices are green, it runs an integration build and unit tests, then end-to-end tests (only if changed), formats, and stages.
+
+- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `impl-spec.md` (optional)
+- **Writes:** source code changes, staged via `git add -A`.
+
 ### `/verify-task`
 
 Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them.
