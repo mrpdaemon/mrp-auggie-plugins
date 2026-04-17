@@ -36,6 +36,21 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 
 Either `/new-task` or `/linear-task` is used to create a task, then `/impl-task` implements it. The intermediate commands (`/research-task`, `/design-task`, `/spec-task`) are optional and can be skipped — for example, you can go directly from `/new-task` to `/impl-task`. When intermediate outputs exist, later commands will use them automatically; when they don't, the commands will explore the codebase on their own.
 
+### Example workflows by task complexity
+
+Pick a workflow that matches the task's complexity. Each step assumes the task has already been created via `/new-task` or `/linear-task`.
+
+- **Trivial** — `/design-task` → `/impl-task` → `/verify-task` → `/make-task-pr`
+  - No dedicated research, impl spec, or verification plan. Those steps are lightweight enough to be folded in: `/design-task` does any needed research, `/impl-task` plans its own implementation, and `/verify-task` plans its own verification.
+- **Low complexity** — `/research-task` → `/design-task` → `/impl-task` → `/verify-task` → `/make-task-pr`
+  - A dedicated research step improves design fidelity.
+- **Medium complexity** — `/research-task` → `/design-task` → `/plan-task-verification` → `/spec-task` → `/impl-task` → `/verify-task` → `/make-task-pr`
+  - Dedicated verification and implementation planning improves robustness by allowing more user involvement.
+- **High complexity** — `/research-task` → `/design-task` → `/plan-task-verification` → `/spec-task` → `/parallel-impl-task` → `/verify-task` → `/make-task-pr`
+  - For large tasks, use coordinator/builder orchestration during implementation.
+
+Some steps can be run in parallel to shorten the critical path. `/plan-task-verification` only depends on the design (and optionally research), so once `/design-task` has completed it can run concurrently with `/spec-task`, or even with `/impl-task` / `/parallel-impl-task` when the spec is skipped. Running them in separate agent sessions works well since their outputs (`verification.md` vs. `impl-spec.md` / source changes) don't overlap.
+
 ### `/new-task`
 
 Create a new task directory and populate it with a task description.
