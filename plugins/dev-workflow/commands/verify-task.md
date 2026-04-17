@@ -3,7 +3,9 @@ name: "mrp-verify-task"
 description: "Execute the verification plan for the current dev task and report results"
 ---
 
-Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), `{design_spec}` (optional), and `{verification_plan}` (optional) as described in the skill.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), `{design_spec}` (optional), `{verification_plan}` (optional), and `{verification_report}` (optional) as described in the skill.
+
+An existing `{verification_report}` from a previous run may be consulted **for context only** — for example, to understand previously observed behavior, environment quirks, or failure modes. Do **not** assume any test case outcome from the existing report. Every run of this command must re-execute the full verification plan from scratch and produce a fresh report.
 
 ## Step 0: Ensure a verification plan exists
 
@@ -31,10 +33,10 @@ Do **not** proceed to test execution until all setup steps have been completed s
 
 ## Step 2: Execute test cases
 
-Work through **every** test case listed in `{verification_plan}`, in the order they appear. For each test case:
+Work through **every** test case listed in `{verification_plan}`, in the order they appear, regardless of whether a prior `{verification_report}` exists or what outcomes it recorded. For each test case:
 
 1. Execute the steps exactly as described in the verification plan.
-2. Record the **actual result**.
+2. Record the **actual result** observed in **this** run — do not reuse or infer results from a prior verification report.
 3. Compare the actual result against the **expected result**.
 4. Mark the test case as **PASS** or **FAIL**.
 
@@ -71,7 +73,7 @@ If the user chooses **Stop**, proceed to the verification report.
 
 ## Step 5: Write verification report
 
-Write the verification report to `{verification_report}` in the task directory using the `save-file` tool. The report should contain:
+Write the verification report to `{verification_report}` in the task directory. If a verification report from a previous run already exists at that path, replace it entirely with the fresh report produced by this run. The report should contain:
 
 1. **Summary** — Overall result (all pass, some failures, etc.) with counts of passed, failed, and blocked test cases.
 2. **Results table** — The full results table from Step 3.

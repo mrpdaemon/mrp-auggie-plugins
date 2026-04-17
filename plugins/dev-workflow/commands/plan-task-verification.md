@@ -51,7 +51,19 @@ Cover the following categories:
 
 Be thorough but practical — every test case should be executable using the chosen methodology.
 
-## Step 4: Write the verification plan
+## Step 4: Plan permanent additions to the existing e2e test suite
+
+This step applies **only** when the codebase already has an established end-to-end testing framework **and** the chosen testing methodology is to use that framework. Otherwise, skip this step.
+
+When it applies, the verification plan must include a dedicated section describing permanent additions to the existing e2e test suite that will land alongside the task's code changes. These additions are committed to the repository and run on CI — they are distinct from test cases that are only executed once during `/verify-task`.
+
+When planning the permanent additions:
+
+- **Prioritize coverage of the main task deliverable** — focus the permanent tests on the core behavior introduced or changed by this task, not on incidental or tangential scenarios.
+- **Keep the additions concise** — the top priority is avoiding a meaningful increase in e2e test runtime. Either select a small subset of the full verification test cases for permanent inclusion, or write targeted, focused test cases specifically for the permanent suite. Do not port the entire verification plan into the permanent suite.
+- **Ensure CI-compatibility** — permanent tests must run on CI machines, so they cannot depend on the user's local machine state, local dev deploys, personal credentials, or other non-reproducible environment assumptions. Call out the required test data, fixtures, environment variables, service dependencies, and any setup the permanent tests rely on, and confirm each is available (or can be made available) in CI.
+
+## Step 5: Write the verification plan
 
 Write the complete verification plan to `{task_dir}/{verification_plan}`.
 
@@ -63,6 +75,7 @@ The verification plan should include:
    - How to set up and run tests
    - Why this methodology was chosen
 3. **Test cases** — The full set of test cases organized by category, each with name, purpose, steps, and expected result.
-4. **Coverage notes** — Any areas that are intentionally not covered and why (e.g., out of scope, covered by existing tests, requires infrastructure not available).
+4. **Permanent e2e suite additions** — Only when Step 4 applies. List the specific test cases to be added permanently to the existing e2e test suite, where they will live, and the CI-compatible test data, fixtures, and setup they require.
+5. **Coverage notes** — Any areas that are intentionally not covered and why (e.g., out of scope, covered by existing tests, requires infrastructure not available).
 
 After writing, confirm to the user that the verification plan has been saved and print a brief summary of the number of test cases by category.

@@ -86,7 +86,7 @@ Collaborate interactively with the user on a detailed implementation spec. Explo
 
 ### `/plan-task-verification`
 
-Create a verification plan with testing methodology and test cases for the current task. Investigates testing frameworks and tools available in the codebase, proposes a methodology, and identifies thorough test cases covering happy paths, edge cases, error conditions, and contract validation.
+Create a verification plan with testing methodology and test cases for the current task. Investigates testing frameworks and tools available in the codebase, proposes a methodology, and identifies thorough test cases covering happy paths, edge cases, error conditions, and contract validation. When the codebase already has an established e2e test framework and that framework is the chosen methodology, the plan also includes a concise, CI-compatible set of permanent additions to the existing e2e suite.
 
 - **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
 - **Writes:** `verification.md` — testing methodology, test cases by category, and coverage notes.
@@ -107,10 +107,10 @@ Same outcome as `/impl-task`, but the coordinating agent decomposes the work int
 
 ### `/verify-task`
 
-Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them. If no verification plan exists yet, one is generated before execution begins.
+Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them. If no verification plan exists yet, one is generated before execution begins. The full verification plan is always re-executed from scratch — any existing verification report is consulted only for context and never used to skip or infer test case outcomes.
 
-- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `verification.md` (optional — generated if missing)
-- **Writes:** `verification.md` (if not already present), code fixes (if the user opts to diagnose and fix failures).
+- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `verification.md` (optional — generated if missing), `verification-report.md` (optional — context only)
+- **Writes:** `verification.md` (if not already present), `verification-report.md`, code fixes (if the user opts to diagnose and fix failures).
 
 ### `/iterate-task`
 
