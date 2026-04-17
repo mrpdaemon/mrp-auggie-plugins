@@ -1,7 +1,7 @@
 {
   "name": "dev-workflow",
   "description": "A plugin to facilitate a task based development workflow comprised of steps to investigate, design, spec out and implement code changes.",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": {
     "name": "mrpdaemon"
   },

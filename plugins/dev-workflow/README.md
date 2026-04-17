@@ -121,7 +121,7 @@ Detect material changes since the last documented state, record them as a number
 
 ### `/make-task-pr`
 
-Squash all commits on the task branch into a single well-messaged commit, push the branch, and create a draft GitHub PR. Uses the `mrp-commit-message` skill to generate the squash commit message. Cleans stale Git SHA references from `iterations.md` if present, and records the PR number in `task.md`.
+Ensure the task branch has exactly one well-messaged commit, push the branch, and create a draft GitHub PR. Uses the `mrp-commit-message` skill to generate the commit message. If the branch has multiple commits they are squashed; if it already has a single commit whose message conforms to the skill's format, the commit is left untouched; if it has a single commit with a non-conforming message, the message is reworded via an amend. Cleans stale Git SHA references from `iterations.md` when history was rewritten, and records the PR number in `task.md`.
 
 - **Reads:** `task.md` (required), `iterations.md` (optional), plus all task artifacts used by the `mrp-commit-message` skill for commit message generation.
 - **Writes:** `iterations.md` (removes stale SHA references), `task.md` (appends PR number).
