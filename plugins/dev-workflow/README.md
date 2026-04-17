@@ -92,10 +92,10 @@ Same outcome as `/impl-task`, but the coordinating agent decomposes the work int
 
 ### `/verify-task`
 
-Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them.
+Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them. If no verification plan exists yet, one is generated before execution begins.
 
-- **Reads:** `task.md` (required), `verification.md` (required)
-- **Writes:** code fixes (if the user opts to diagnose and fix failures).
+- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `verification.md` (optional — generated if missing)
+- **Writes:** `verification.md` (if not already present), code fixes (if the user opts to diagnose and fix failures).
 
 ### `/iterate-task`
 

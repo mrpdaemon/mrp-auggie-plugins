@@ -3,7 +3,18 @@ name: "mrp-verify-task"
 description: "Execute the verification plan for the current dev task and report results"
 ---
 
-Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) and `{verification_plan}` (required) as described in the skill.
+Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), `{design_spec}` (optional), and `{verification_plan}` (optional) as described in the skill.
+
+## Step 0: Ensure a verification plan exists
+
+If `{verification_plan}` is not present in the task directory, produce one before proceeding:
+
+1. Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), determine an appropriate **end-to-end** testing methodology. Examine existing test infrastructure (frameworks, runners, fixtures, CLI-based testing patterns) using `codebase-retrieval` or `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`). Unit and integration tests are out of scope — focus on lightweight end-to-end approaches that exercise the changes from the user's perspective. If there are multiple viable methodologies, present your recommendation with alternatives to the user via `ask-user`; otherwise, present the single chosen methodology for confirmation.
+2. Identify any non-trivial configuration or test data required (API keys, credentials, service URLs, seed data, environment variables, etc.) and use `ask-user` to obtain them from the user.
+3. Identify a thorough set of test cases covering **happy path**, **edge cases**, **error conditions**, **contract validation**, and **regression**. For each test case specify name, purpose, steps, and expected result.
+4. Write the verification plan to `{task_dir}/{verification_plan}` with sections for summary, testing methodology, test cases organized by category, and coverage notes.
+
+Once `{verification_plan}` is in place, continue with the remaining steps.
 
 ## Step 1: Set up the test environment
 
