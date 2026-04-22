@@ -26,10 +26,10 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 | File | Created by | Description |
 |---|---|---|
 | `task.md` | `/new-task` or `/linear-task` | Task description (required — all other commands depend on it) |
-| `research.md` | `/research-task` | Codebase research report |
-| `design.md` | `/design-task` | High-level design document |
-| `impl-spec.md` | `/spec-task` | Detailed implementation spec |
-| `verification.md` | `/plan-task-verification` | Verification plan with test cases |
+| `research-report.md` | `/research-task` | Codebase research report |
+| `design-spec.md` | `/design-task` | High-level design document |
+| `implementation-spec.md` | `/spec-task` | Detailed implementation spec |
+| `verification-plan.md` | `/plan-task-verification` | Verification plan with test cases |
 | `iterations.md` | `/iterate-task` | Task iteration history tracking changes across iterations |
 
 ## Workflow
@@ -49,7 +49,7 @@ Pick a workflow that matches the task's complexity. Each step assumes the task h
 - **High complexity** — `/research-task` → `/design-task` → `/plan-task-verification` → `/spec-task` → `/parallel-impl-task` → `/verify-task` → `/make-task-pr`
   - For large tasks, use coordinator/builder orchestration during implementation.
 
-Some steps can be run in parallel to shorten the critical path. `/plan-task-verification` only depends on the design (and optionally research), so once `/design-task` has completed it can run concurrently with `/spec-task`, or even with `/impl-task` / `/parallel-impl-task` when the spec is skipped. Running them in separate agent sessions works well since their outputs (`verification.md` vs. `impl-spec.md` / source changes) don't overlap.
+Some steps can be run in parallel to shorten the critical path. `/plan-task-verification` only depends on the design (and optionally research), so once `/design-task` has completed it can run concurrently with `/spec-task`, or even with `/impl-task` / `/parallel-impl-task` when the spec is skipped. Running them in separate agent sessions works well since their outputs (`verification-plan.md` vs. `implementation-spec.md` / source changes) don't overlap.
 
 ### `/new-task`
 
@@ -68,56 +68,56 @@ Create a new task directory from a Linear issue. Looks up the issue, derives a t
 Investigate the codebase and produce a research report with all the context needed for design and implementation.
 
 - **Reads:** `task.md` (required)
-- **Writes:** `research.md` — synthesized findings including relevant files, key abstractions, patterns, constraints, and open questions.
+- **Writes:** `research-report.md` — synthesized findings including relevant files, key abstractions, patterns, constraints, and open questions.
 
 ### `/design-task`
 
 Collaborate interactively with the user on a high-level design. Walks through key design questions one at a time, then synthesizes the answers into a design document.
 
-- **Reads:** `task.md` (required), `research.md` (optional)
-- **Writes:** `design.md` — design decisions, chosen approach, components to modify, and open questions/risks.
+- **Reads:** `task.md` (required), `research-report.md` (optional)
+- **Writes:** `design-spec.md` — design decisions, chosen approach, components to modify, and open questions/risks.
 
 ### `/spec-task`
 
 Collaborate interactively with the user on a detailed implementation spec. Explores the codebase to identify every file and function that needs to change, resolves ambiguities with the user, and defines a testing plan.
 
-- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
-- **Writes:** `impl-spec.md` — file-by-file change descriptions, new file specifications, dependency ordering, and testing plan.
+- **Reads:** `task.md` (required), `research-report.md` (optional), `design-spec.md` (optional)
+- **Writes:** `implementation-spec.md` — file-by-file change descriptions, new file specifications, dependency ordering, and testing plan.
 
 ### `/plan-task-verification`
 
 Create a verification plan with testing methodology and test cases for the current task. Investigates testing frameworks and tools available in the codebase, proposes a methodology, and identifies thorough test cases covering happy paths, edge cases, error conditions, and contract validation. When the codebase already has an established e2e test framework and that framework is the chosen methodology, the plan also includes a concise, CI-compatible set of permanent additions to the existing e2e suite.
 
-- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional)
-- **Writes:** `verification.md` — testing methodology, test cases by category, and coverage notes.
+- **Reads:** `task.md` (required), `research-report.md` (optional), `design-spec.md` (optional)
+- **Writes:** `verification-plan.md` — testing methodology, test cases by category, and coverage notes.
 
 ### `/impl-task`
 
 Implement all code changes, then build, test, format, and stage. Follows the implementation spec if available, otherwise falls back to the design or research for guidance.
 
-- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `impl-spec.md` (optional)
+- **Reads:** `task.md` (required), `research-report.md` (optional), `design-spec.md` (optional), `implementation-spec.md` (optional)
 - **Writes:** source code changes, staged via `git add -A`.
 
 ### `/parallel-impl-task`
 
 Same outcome as `/impl-task`, but the coordinating agent decomposes the work into a dependency graph of implementation slices and dispatches independent slices concurrently to `mrp-builder` sub-agents, handling sequential slices itself. After all slices are green, it runs an integration build and unit tests, then end-to-end tests (only if changed), formats, and stages.
 
-- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `impl-spec.md` (optional)
+- **Reads:** `task.md` (required), `research-report.md` (optional), `design-spec.md` (optional), `implementation-spec.md` (optional)
 - **Writes:** source code changes, staged via `git add -A`.
 
 ### `/verify-task`
 
 Execute the verification plan for the current task. Performs any required setup, runs every test case from the verification plan, and reports results. If there are failures, offers to diagnose and fix them. If no verification plan exists yet, one is generated before execution begins. The full verification plan is always re-executed from scratch — any existing verification report is consulted only for context and never used to skip or infer test case outcomes.
 
-- **Reads:** `task.md` (required), `research.md` (optional), `design.md` (optional), `verification.md` (optional — generated if missing), `verification-report.md` (optional — context only)
-- **Writes:** `verification.md` (if not already present), `verification-report.md`, code fixes (if the user opts to diagnose and fix failures).
+- **Reads:** `task.md` (required), `research-report.md` (optional), `design-spec.md` (optional), `verification-plan.md` (optional — generated if missing), `verification-report.md` (optional — context only)
+- **Writes:** `verification-plan.md` (if not already present), `verification-report.md`, code fixes (if the user opts to diagnose and fix failures).
 
 ### `/iterate-task`
 
 Detect material changes since the last documented state, record them as a numbered iteration in `iterations.md`, and surgically update affected task artifacts to stay in sync with what was actually implemented.
 
-- **Reads:** `task.md` (required), `design.md` (optional), `impl-spec.md` (optional), `verification.md` (optional), `iterations.md` (optional)
-- **Writes:** `iterations.md` — created or appended with a new iteration section; `design.md`, `impl-spec.md`, `verification.md` — surgically updated with cross-reference notes and content edits where affected.
+- **Reads:** `task.md` (required), `design-spec.md` (optional), `implementation-spec.md` (optional), `verification-plan.md` (optional), `iterations.md` (optional)
+- **Writes:** `iterations.md` — created or appended with a new iteration section; `design-spec.md`, `implementation-spec.md`, `verification-plan.md` — surgically updated with cross-reference notes and content edits where affected.
 
 ### `/make-task-pr`
 

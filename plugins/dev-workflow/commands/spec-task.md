@@ -1,6 +1,6 @@
 ---
 name: "mrp-spec-task"
-description: "Collaborate on a detailed implementation spec for the current dev task and save it as impl-spec.md"
+description: "Collaborate on a detailed implementation spec for the current dev task and save it as implementation-spec.md"
 ---
 
 Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), and `{design_spec}` (optional) as described in the skill.

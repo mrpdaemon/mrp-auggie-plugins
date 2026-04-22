@@ -1,6 +1,6 @@
 ---
 name: "mrp-design-task"
-description: "Collaborate on a high-level design for the current dev task and save it as design.md"
+description: "Collaborate on a high-level design for the current dev task and save it as design-spec.md"
 ---
 
 Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required) and `{research_report}` (optional) as described in the skill.

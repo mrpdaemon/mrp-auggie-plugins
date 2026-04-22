@@ -44,7 +44,7 @@ Then **stop** without writing anything.
 If material changes are found, present a summary to the user describing:
 
 1. What material changes were detected
-2. Which artifacts will be updated (`design.md`, `impl-spec.md`, `verification.md`)
+2. Which artifacts will be updated (`design-spec.md`, `implementation-spec.md`, `verification-plan.md`)
 3. The iteration number that will be created
 
 Use the `ask-user` tool to ask the user whether to:
@@ -80,8 +80,8 @@ Description of another material change.
 
 ### Artifacts Updated
 
-- `design.md` — Updated section X to reflect Y
-- `impl-spec.md` — Added new file Z, modified section W
+- `design-spec.md` — Updated section X to reflect Y
+- `implementation-spec.md` — Added new file Z, modified section W
 - (list only artifacts that were actually updated)
 
 **Git state:** `<HEAD SHA at time of iteration>`
