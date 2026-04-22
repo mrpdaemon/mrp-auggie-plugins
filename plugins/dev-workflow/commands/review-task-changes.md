@@ -9,7 +9,7 @@ You are the **coordinator** for this review. You do not review code yourself —
 
 ## Step 1: Dispatch reviewers
 
-Launch **5** `mrp-reviewer` sub-agents concurrently in a single batch of parallel tool calls (check your available tools for the one ending in `mrp-reviewer`). Each reviewer reviews the code changes on the task branch independently.
+Launch **3** `mrp-reviewer` sub-agents concurrently in a single batch of parallel tool calls (check your available tools for the one ending in `mrp-reviewer`). Each reviewer reviews the code changes on the task branch independently.
 
 Each reviewer's scope statement should make clear that:
 
@@ -18,7 +18,7 @@ Each reviewer's scope statement should make clear that:
 - They must return severity-ranked findings (`high` / `medium` / `low`) with file paths, line numbers, and clear rationale.
 - They must not make any code changes, must not write into any task artifact, and must not launch further sub-agents.
 
-Wait for all 5 reviewers to return their reports before moving on.
+Wait for all 3 reviewers to return their reports before moving on.
 
 ## Step 2: Determine the new round number
 
@@ -28,7 +28,7 @@ Otherwise, find the highest existing round number `M` in `{review_findings}` and
 
 ## Step 3: Merge and deduplicate findings
 
-1. **Merge** the findings from all 5 reviewer reports into a single pool.
+1. **Merge** the findings from all 3 reviewer reports into a single pool.
 2. **Dedupe within the pool** — combine findings that describe the same underlying issue (same file and logical concern). Keep the clearest wording and the highest severity among duplicates.
 3. **Exclude previously-skipped findings** — if `{review_findings}` exists, drop any pooled finding that matches a finding marked `SKIPPED` in any prior round. A match is based on the underlying issue, not literal wording.
 4. **Keep re-flagged findings that were previously addressed** — if a pooled finding matches one marked `ADDRESSED` in a prior round but the current reviewers still flag it, **include** it in the new round.
