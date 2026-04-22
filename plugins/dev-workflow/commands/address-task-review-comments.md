@@ -59,9 +59,12 @@ For each `NEW` finding:
 
 After every finding in a round has been processed (i.e., no more findings remain `NEW`), mark the round as `COMPLETE` in the source file, even if one or more findings were `SKIPPED`.
 
-## PR review threads
+## PR review comments and threads
 
-After file-based sources have been processed, handle unresolved review threads on the task's GitHub PR.
+After file-based sources have been processed, handle feedback on the task's GitHub PR. There are two kinds of PR feedback to consider:
+
+- **Review threads** — inline comments tied to specific lines of code. Threads carry a resolution status (`isResolved`), which is used as a proxy for whether the feedback still needs attention. Only unresolved threads are in scope.
+- **PR comments** — top-level comments on the PR conversation (not part of a review thread). These do **not** carry a resolution status, so each comment must be individually assessed against the current code to determine whether its feedback has already been addressed.
 
 ### Discovery
 
@@ -71,12 +74,35 @@ After file-based sources have been processed, handle unresolved review threads o
 
 Store the PR number as `{pr_number}` and the repo owner/name as `{owner}` and `{repo}`.
 
-### Fetching unresolved threads
+### Fetching feedback
 
-Use GraphQL via the `gh` CLI to fetch review threads with their resolution status, author, body, file path, line, and timestamps. Filter to only threads where `isResolved` is `false`.
+Use the `gh` CLI to fetch both streams for the PR:
+
+- Every review thread with its resolution status, file path, line, and the chronological list of comments it contains (author, body, timestamp).
+- Every top-level PR conversation comment with author, body, and timestamp.
+
+Filter review threads to those where `isResolved` is `false`. PR comments are **not** pre-filtered by any resolution proxy; each is assessed individually in the per-comment flow below.
 
 - If the `gh` CLI is unavailable or unauthenticated, inform the user with clear installation/auth guidance and skip this source.
-- If there are no review threads or all threads are resolved, inform the user and skip this source.
+- If there are no unresolved threads **and** no PR comments, inform the user and skip this source.
+
+Process all PR comments first, then all unresolved threads.
+
+### Per-comment flow
+
+For each PR comment, in chronological order:
+
+1. **Display the comment** with a clear header (e.g., "Comment 1 of N"), showing author (`@login`), body, and timestamp.
+2. **Assess whether the comment is already addressed.** Because PR comments have no resolution status, examine the current state of the code (and any other relevant task artifacts) in light of what the comment is asking for, and decide whether the requested change — or its spirit — is already reflected in the branch. Present the assessment and the evidence used.
+3. **Branch on the assessment:**
+   - If the comment is **confidently already addressed**, ask the user to confirm via `ask-user` with options **Confirm (no change)** / **Fix anyway** / **Skip**. Confirming or skipping moves on without changes; choosing "Fix anyway" falls through to step 4.
+   - Otherwise, continue to step 4.
+4. **Propose a fix**, explaining what the commenter is asking for, what change you propose, and your reasoning.
+5. **Get user approval** via `ask-user` with three options:
+   - **Approve** — Implement the proposed fix.
+   - **Modify** — The user provides additional guidance; incorporate it and re-propose (loop back to step 4).
+   - **Skip** — Move on without making changes.
+6. **Implement** the fix if approved. Make targeted, minimal edits.
 
 ### Per-thread flow
 
@@ -91,7 +117,7 @@ For each unresolved thread, in order:
    - **Skip** — Move on without making changes.
 5. **Implement** the fix if approved. Make targeted, minimal edits.
 
-PR thread resolution state on GitHub is **not** modified by this command; the PR remains the source of truth for its own threads.
+PR review thread resolution state and PR comment state on GitHub are **not** modified by this command; the PR remains the source of truth for its own state.
 
 ## Commit and push
 

@@ -137,8 +137,8 @@ Spawn five `mrp-reviewer` sub-agents in parallel to review the changes on the ta
 
 ### `/address-task-review-comments`
 
-Walk through review feedback from all available sources — `user-review.txt`, `review-findings.md`, and unresolved threads on the task PR — and propose and implement fixes interactively. For file-based sources, processes every round that is not marked `COMPLETE`; each addressed finding is updated to `ADDRESSED`, each skipped finding to `SKIPPED`, and the round is marked `COMPLETE` once all of its findings have been resolved. PR thread resolution state on GitHub is not modified by this command.
+Walk through review feedback from all available sources — `user-review.txt`, `review-findings.md`, and unresolved review threads and top-level comments on the task PR — and propose and implement fixes interactively. For file-based sources, processes every round that is not marked `COMPLETE`; each addressed finding is updated to `ADDRESSED`, each skipped finding to `SKIPPED`, and the round is marked `COMPLETE` once all of its findings have been resolved. For the task PR, unresolved review threads are processed using their resolution status, and top-level PR comments are individually assessed against the current code to decide whether they still need addressing. PR thread resolution state and PR comment state on GitHub are not modified by this command.
 
-- **Reads:** `task.md` (required), `user-review.txt` (optional), `review-findings.md` (optional) — and unresolved PR review threads when a PR exists.
+- **Reads:** `task.md` (required), `user-review.txt` (optional), `review-findings.md` (optional) — and unresolved PR review threads and top-level PR comments when a PR exists.
 - **Writes:** source code changes based on approved feedback; updates finding/round status in `user-review.txt` and `review-findings.md`; optionally commits and pushes via `mrp-commit-message`.
 
