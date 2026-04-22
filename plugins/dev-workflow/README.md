@@ -31,6 +31,8 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 | `implementation-spec.md` | `/spec-task` | Detailed implementation spec |
 | `verification-plan.md` | `/plan-task-verification` | Verification plan with test cases |
 | `iterations.md` | `/iterate-task` | Task iteration history tracking changes across iterations |
+| `user-review.txt` | user (manual) | Review comments authored by the user, organized into rounds |
+| `review-findings.md` | `/review-task-changes` | Review findings produced by reviewer sub-agents, organized into rounds |
 
 ## Workflow
 
@@ -126,10 +128,17 @@ Ensure the task branch has exactly one well-messaged commit, push the branch, an
 - **Reads:** `task.md` (required), `iterations.md` (optional), plus all task artifacts used by the `mrp-commit-message` skill for commit message generation.
 - **Writes:** `iterations.md` (removes stale SHA references), `task.md` (appends PR number).
 
-### `/address-task-pr-comments`
+### `/review-task-changes`
 
-Fetch unresolved PR review comments, walk through each interactively, propose and implement fixes. Uses GraphQL via the `gh` CLI to determine thread resolution status.
+Spawn five `mrp-reviewer` sub-agents in parallel to review the changes on the task branch, deduplicate and severity-rank their findings, and record them as a new numbered round in `review-findings.md`. Findings marked `SKIPPED` in a prior round are excluded from the new round; findings marked `ADDRESSED` that the reviewers still flag are re-included.
 
-- **Reads:** `task.md` (required) — to discover the PR URL or number.
-- **Writes:** source code changes based on approved review feedback; optionally commits and pushes via `mrp-commit-message`.
+- **Reads:** `task.md` (required), `review-findings.md` (optional — prior rounds inform deduplication).
+- **Writes:** `review-findings.md` — appends a new `Round N [NEW]` section listing the deduplicated findings in severity order.
+
+### `/address-task-review-comments`
+
+Walk through review feedback from all available sources — `user-review.txt`, `review-findings.md`, and unresolved threads on the task PR — and propose and implement fixes interactively. For file-based sources, processes every round that is not marked `COMPLETE`; each addressed finding is updated to `ADDRESSED`, each skipped finding to `SKIPPED`, and the round is marked `COMPLETE` once all of its findings have been resolved. PR thread resolution state on GitHub is not modified by this command.
+
+- **Reads:** `task.md` (required), `user-review.txt` (optional), `review-findings.md` (optional) — and unresolved PR review threads when a PR exists.
+- **Writes:** source code changes based on approved feedback; updates finding/round status in `user-review.txt` and `review-findings.md`; optionally commits and pushes via `mrp-commit-message`.
 

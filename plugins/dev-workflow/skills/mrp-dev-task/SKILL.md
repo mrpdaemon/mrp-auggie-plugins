@@ -22,6 +22,8 @@ Artifacts related to the current development task are stored under the {tasks_di
 | `verification-plan.md` | `{verification_plan}` | optional | Verification plan with testing methodology and test cases. |
 | `iterations.md` | `{iterations}` | optional | Task iteration history tracking changes across iterations. |
 | `verification-report.md` | `{verification_report}` | optional | Verification report with test results and findings. |
+| `user-review.txt` | `{user_review}` | optional | Review comments authored by the user, organized into rounds of findings. |
+| `review-findings.md` | `{review_findings}` | optional | Review findings produced by code review sub-agents, organized into rounds. |
 
 # Development Task Git Branch
 
