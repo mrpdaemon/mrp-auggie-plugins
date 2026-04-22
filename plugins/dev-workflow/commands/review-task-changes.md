@@ -44,11 +44,17 @@ Append a new round section to `{task_dir}/{review_findings}` (create the file wi
 ```
 # Round N [NEW]
 
-* Finding 1: [NEW] <one-line summary — severity: high|medium|low>
-  <details: file path and line, rationale, suggested direction>
+* Finding 1: [NEW]
+  <severity: high|medium|low>
+  <one-line summary>
+  <details: rationale, suggested direction>
+  <files: files and line numbers>
 
-* Finding 2: [NEW] <one-line summary — severity: high|medium|low>
-  <details>
+* Finding 2: [NEW]
+  <severity: high|medium|low>
+  <one-line summary>
+  <details: rationale, suggested direction>
+  <files: files and line numbers>
 ```
 
 - Use the round number determined in Step 2.
