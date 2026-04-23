@@ -44,18 +44,28 @@ Append a new round section to `{task_dir}/{review_findings}` (create the file wi
 ```
 # Round N [NEW]
 
-* Finding 1: [NEW]
-  <severity: high|medium|low>
-  <one-line summary>
-  <details: rationale, suggested direction>
-  <files: files and line numbers>
+## Finding 1: [NEW]
 
-* Finding 2: [NEW]
-  <severity: high|medium|low>
+  **Severity:** <high|medium|low>
+
   <one-line summary>
-  <details: rationale, suggested direction>
-  <files: files and line numbers>
+
+  **Details:** <rationale, suggested direction>
+
+  **Files:** <files and line numbers>
+
+## Finding 2: [NEW]
+
+  **Severity:** <high|medium|low>
+
+  <one-line summary>
+
+  **Details:** <rationale, suggested direction>
+
+  **Files:** <files and line numbers>
 ```
+
+Leave a blank line between each finding and between each section within a finding, exactly as shown above.
 
 - Use the round number determined in Step 2.
 - The round status starts as `NEW`.
