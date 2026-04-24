@@ -130,7 +130,7 @@ Ensure the task branch has exactly one well-messaged commit, push the branch, an
 
 ### `/review-task-changes`
 
-Spawn five `mrp-reviewer` sub-agents in parallel to review the changes on the task branch, deduplicate and severity-rank their findings, and record them as a new numbered round in `review-findings.md`. Findings marked `SKIPPED` in a prior round are excluded from the new round; findings marked `ADDRESSED` that the reviewers still flag are re-included.
+Spawn multiple `mrp-reviewer` sub-agents in parallel to review the changes on the task branch, deduplicate and severity-rank their findings, and record them as a new numbered round in `review-findings.md`. The coordinator always dispatches one holistic reviewer over the full diff (task-requirement gaps, verification/testing coverage, whole-change refactoring) plus one or more code-focused reviewers (bugs/correctness, code quality, plus — when warranted — scaling/performance/concurrency or security); for larger changes the code-focused reviewers get distinct slices of the diff, while for smaller changes a single code-focused reviewer covers the whole diff. Findings marked `SKIPPED` in a prior round are excluded from the new round; findings marked `ADDRESSED` that the reviewers still flag are re-included.
 
 - **Reads:** `task.md` (required), `review-findings.md` (optional — prior rounds inform deduplication).
 - **Writes:** `review-findings.md` — appends a new `Round N [NEW]` section listing the deduplicated findings in severity order.
