@@ -11,7 +11,7 @@ If `{research_report}` is not available, you will perform your own codebase expl
 
 Check whether the design document file `{design_spec}` already exists.
 
-If the file exists, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, ask the user whether they want to:
 - **Regenerate** the design from scratch
 - **Stop** and keep the existing design
 
@@ -34,7 +34,7 @@ If no research report was available, use `codebase-retrieval` for quick lookups,
 
 ### 2b: Walk through questions one by one
 
-Present each design question to the user **one at a time** using the `ask-user` tool. For each question:
+Present each design question to the user **one at a time**. For each question:
 
 1. Explain the question and why it matters.
 2. Provide your **recommendation** with reasoning.

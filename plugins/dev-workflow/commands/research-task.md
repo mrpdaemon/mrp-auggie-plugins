@@ -9,7 +9,7 @@ Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_di
 
 Check whether the research report file `{research_report}` already exists.
 
-If the file exists, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, ask the user whether they want to:
 - **Regenerate** the research report from scratch
 - **Stop** and keep the existing report
 

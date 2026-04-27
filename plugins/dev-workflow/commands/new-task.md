@@ -31,7 +31,7 @@ Then proceed based on their choice using the write methods below.
 
 ### Writing the file contents
 
-Use the `ask-user` tool to ask the user how they'd like to provide the description, with these two suggested responses:
+Ask the user how they'd like to provide the description, with these two suggested responses:
 - "Edit the file myself."
 - "Supply the description here."
 
@@ -41,7 +41,7 @@ vim {task_dir}/task.md
 ```
 Then wait for the user to confirm they are done editing before proceeding to Step 3.
 
-If the user chooses **"Supply the description here"**: wait for the user's next message and treat its contents as the description. Write it to the task.md file. Do not use the `ask-user` tool, just wait for the user's next input and treat that as the description.
+If the user chooses **"Supply the description here"**: wait for the user's next message and treat its contents as the description. Write it to the task.md file. Do not ask another question — just wait for the user's next input and treat that as the description.
 
 ## Step 3: Confirm
 

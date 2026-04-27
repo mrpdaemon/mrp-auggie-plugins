@@ -7,7 +7,7 @@ Load the `mrp-dev-task` skill and store `{tasks_dir}` as described in the skill.
 
 ## Step 1: Determine the Linear issue
 
-If the user provided a Linear issue ID as an argument (e.g. `AU-1234`), use it. Otherwise, use the `ask-user` tool to ask the user for the Linear issue ID.
+If the user provided a Linear issue ID as an argument (e.g. `AU-1234`), use it. Otherwise, ask the user for the Linear issue ID.
 
 Store the resolved issue ID as `{issue_id}`.
 
@@ -21,7 +21,7 @@ Store the issue title as `{issue_title}` and the full issue contents as `{issue_
 
 Based on the Linear issue title and description, come up with a task name following the task name guidance in the `mrp-dev-task` skill.
 
-Use the `ask-user` tool to present the proposed task name to the user and ask for confirmation. Allow the user to alter the name if they prefer something different.
+Present the proposed task name to the user and ask for confirmation. Allow the user to alter the name if they prefer something different.
 
 Store the confirmed name as `{task_name}`. Set `{task_dir}` to `{tasks_dir}/{task_name}`.
 
@@ -45,7 +45,7 @@ First, check whether the file already exists:
 test -f {task_dir}/task.md && echo EXISTS || echo NEW
 ```
 
-If the file already exists, use the `ask-user` tool to ask the user whether they want to:
+If the file already exists, ask the user whether they want to:
 - **Overwrite** the existing task.md
 - **Stop** and keep the existing file
 

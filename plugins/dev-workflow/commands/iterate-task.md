@@ -47,7 +47,7 @@ If material changes are found, present a summary to the user describing:
 2. Which artifacts will be updated (`design-spec.md`, `implementation-spec.md`, `verification-plan.md`)
 3. The iteration number that will be created
 
-Use the `ask-user` tool to ask the user whether to:
+Ask the user whether to:
 - **Proceed** — Record the iteration and update artifacts
 - **Stop** — Do not write anything
 

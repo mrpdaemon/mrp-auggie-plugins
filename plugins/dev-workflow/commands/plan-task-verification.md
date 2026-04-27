@@ -9,7 +9,7 @@ Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_di
 
 Check whether the verification plan file `{verification_plan}` already exists.
 
-If the file exists, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, ask the user whether they want to:
 - **Regenerate** the verification plan from scratch
 - **Stop** and keep the existing plan
 
@@ -24,13 +24,13 @@ Based on `{task_description}`, `{research_report}` (if available), and `{design_
 
 Unit tests and integration tests are **out of scope** — focus exclusively on **end-to-end testing** that exercises the changes from the user's perspective. Focus on **simplicity and speed** — prefer lightweight end-to-end approaches that give fast feedback over heavyweight test harnesses.
 
-If there are **multiple viable testing methodologies**, present your **recommendation** along with the alternatives to the user using the `ask-user` tool. Explain the trade-offs (speed, coverage, complexity, reliability) and let the user pick the most suitable option.
+If there are **multiple viable testing methodologies**, present your **recommendation** along with the alternatives and ask the user to pick. Explain the trade-offs (speed, coverage, complexity, reliability) and let the user pick the most suitable option.
 
 If there is a single clear methodology, present it to the user for confirmation before proceeding.
 
 ### 2a: Obtain test data and configuration
 
-Identify any non-trivial configuration or test data required to execute the end-to-end tests. This may include API keys, authentication tokens, config files, service URLs, environment variables, seed data, or external account credentials. If any such requirements exist, use the `ask-user` tool to ask the user to provide them.
+Identify any non-trivial configuration or test data required to execute the end-to-end tests. This may include API keys, authentication tokens, config files, service URLs, environment variables, seed data, or external account credentials. If any such requirements exist, ask the user to provide them.
 
 ## Step 3: Identify test cases
 

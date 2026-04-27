@@ -11,8 +11,8 @@ An existing `{verification_report}` from a previous run may be consulted **for c
 
 If `{verification_plan}` is not present in the task directory, produce one before proceeding:
 
-1. Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), determine an appropriate **end-to-end** testing methodology. Examine existing test infrastructure (frameworks, runners, fixtures, CLI-based testing patterns) using `codebase-retrieval` or `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`). Unit and integration tests are out of scope — focus on lightweight end-to-end approaches that exercise the changes from the user's perspective. If there are multiple viable methodologies, present your recommendation with alternatives to the user via `ask-user`; otherwise, present the single chosen methodology for confirmation.
-2. Identify any non-trivial configuration or test data required (API keys, credentials, service URLs, seed data, environment variables, etc.) and use `ask-user` to obtain them from the user.
+1. Based on `{task_description}`, `{research_report}` (if available), and `{design_spec}` (if available), determine an appropriate **end-to-end** testing methodology. Examine existing test infrastructure (frameworks, runners, fixtures, CLI-based testing patterns) by searching the codebase or launching `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`). Unit and integration tests are out of scope — focus on lightweight end-to-end approaches that exercise the changes from the user's perspective. If there are multiple viable methodologies, present your recommendation with alternatives to the user; otherwise, present the single chosen methodology for confirmation.
+2. Identify any non-trivial configuration or test data required (API keys, credentials, service URLs, seed data, environment variables, etc.) and ask the user to provide them.
 3. Identify a thorough set of test cases covering **happy path**, **edge cases**, **error conditions**, **contract validation**, and **regression**. For each test case specify name, purpose, steps, and expected result.
 4. Write the verification plan to `{task_dir}/{verification_plan}` with sections for summary, testing methodology, test cases organized by category, and coverage notes.
 
@@ -27,7 +27,7 @@ Follow the **Testing methodology** section of `{verification_plan}` to perform a
 - Deploying services
 - Preparing test data or seed data
 
-If the verification plan references configuration values that are missing or placeholders (e.g., API keys, URLs, credentials), use the `ask-user` tool to ask the user to provide them.
+If the verification plan references configuration values that are missing or placeholders (e.g., API keys, URLs, credentials), ask the user to provide them.
 
 Do **not** proceed to test execution until all setup steps have been completed successfully.
 
@@ -58,7 +58,7 @@ For each **FAIL**, include a brief description of the actual result versus the e
 
 ## Step 4: Diagnose failures (if any)
 
-If there are any **FAIL** results, use the `ask-user` tool to ask the user whether they want to:
+If there are any **FAIL** results, ask the user whether they want to:
 - **Diagnose and fix** — Investigate the root cause of the failures and attempt to fix the underlying code.
 - **Stop** — End verification and leave the failures for later.
 

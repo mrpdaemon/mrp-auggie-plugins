@@ -11,7 +11,7 @@ If neither `{research_report}` nor `{design_spec}` is available, you will perfor
 
 Check whether the implementation spec file `{implementation_spec}` already exists.
 
-If the file exists, use the `ask-user` tool to ask the user whether they want to:
+If the file exists, ask the user whether they want to:
 - **Regenerate** the spec from scratch
 - **Stop** and keep the existing spec
 
@@ -36,7 +36,7 @@ Present the proposed set of changes to the user, organized by component/file. Fo
 2. **How** it needs to change (detailed description of the modification).
 3. **Why** (rationale linking back to the task requirements).
 
-If there are any implementation decisions where you are **not very confident**, use the `ask-user` tool to ask the user before proceeding. Examples of things to ask about:
+If there are any implementation decisions where you are **not very confident**, ask the user before proceeding. Examples of things to ask about:
 - Ambiguous requirements that could be interpreted multiple ways.
 - Multiple valid implementation approaches with different trade-offs.
 - Naming conventions or patterns you are unsure about.
