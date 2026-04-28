@@ -135,6 +135,13 @@ Spawn multiple `mrp-reviewer` sub-agents in parallel to review the changes on th
 - **Reads:** `task.md` (required), `review-findings.md` (optional — prior rounds inform deduplication).
 - **Writes:** `review-findings.md` — appends a new `Round N [NEW]` section listing the deduplicated findings in severity order.
 
+### `/refactor-task-changes`
+
+Survey the changes done so far on the current task branch, reason about whether the change footprint is justified by the task's actual complexity, and surface refactoring/simplification opportunities (duplicated code, unwarranted abstraction, dead code, naming/structure issues, etc.). Presents the candidates to the user as a numbered list with files touched and a rough complexity/risk indicator; the user picks which to undertake. Selected opportunities are sequenced into slices, dispatched to `mrp-builder` sub-agents (in parallel waves when slices are mutually independent, otherwise sequentially), and required to be behavior-preserving by default. After all slices are green, runs an integration build and unit tests, formats, stages, and commits using the `mrp-commit-message` skill. Does not push.
+
+- **Reads:** `task.md` (required), `design-spec.md` (optional), `implementation-spec.md` (optional).
+- **Writes:** source code changes implementing the approved refactors, staged via `git add -A` and committed.
+
 ### `/address-task-review-comments`
 
 Walk through review feedback from all available sources — `user-review.txt`, `review-findings.md`, and unresolved review threads and top-level comments on the task PR — and propose and implement fixes. For each source, the user picks a processing mode: **Interactive** (one-by-one with user approval per item), **Autonomous** (process every unaddressed item without per-item interaction, only pausing for items with significant impact such as design changes, large change footprint, public-API or dependency changes), or **Specific items** (user selects a subset of items, then chooses interactive or autonomous for that subset). For file-based sources, processes every round that is not marked `COMPLETE`; each addressed finding is updated to `ADDRESSED`, each skipped finding to `SKIPPED`, and the round is marked `COMPLETE` only once all of its findings are resolved. For the task PR, unresolved review threads are processed using their resolution status, and top-level PR comments are individually assessed against the current code to decide whether they still need addressing; the PR is treated as a single source for mode selection. PR thread resolution state and PR comment state on GitHub are not modified by this command.
