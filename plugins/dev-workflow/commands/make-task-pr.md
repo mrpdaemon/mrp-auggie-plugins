@@ -30,7 +30,7 @@ Only applicable when Step 2 rewrote history. If `{iterations}` exists and contai
 ## Step 4: Push and create draft PR
 
 1. **Push** the branch to the remote and set up upstream tracking. Use a force push only if Step 2 rewrote history; otherwise a regular push is sufficient.
-2. **Create a draft PR** via the GitHub API. Use the first line of the final commit message as the PR title and the remainder as the PR body.
+2. **Create a draft PR** via the GitHub API. Use the first line of the final commit message as the PR title and the remainder as the PR body. Before submitting, reflow the body so prose paragraphs render as flowing paragraphs rather than fixed-width column breaks: within each paragraph, join hard-wrapped lines (which the `mrp-commit-message` skill produces at a ~72–80 character column) into a single long line, while preserving blank lines between paragraphs/sections, section headers, list items, code blocks, and other intentional line breaks. The PR body's content must remain otherwise identical to the commit message body.
 3. **Record the PR** — Append `PR: #<number>` to `{task_dir}/task.md`.
 
 ## Step 5: Confirm
