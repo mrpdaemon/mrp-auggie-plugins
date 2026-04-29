@@ -30,7 +30,12 @@ Only applicable when Step 2 rewrote history. If `{iterations}` exists and contai
 ## Step 4: Push and create draft PR
 
 1. **Push** the branch to the remote and set up upstream tracking. Use a force push only if Step 2 rewrote history; otherwise a regular push is sufficient.
-2. **Create a draft PR** via the GitHub API. Use the first line of the final commit message as the PR title and the remainder as the PR body. Before submitting, reflow the body so prose paragraphs render as flowing paragraphs rather than fixed-width column breaks: within each paragraph, join hard-wrapped lines (which the `mrp-commit-message` skill produces at a ~72–80 character column) into a single long line, while preserving blank lines between paragraphs/sections, section headers, list items, code blocks, and other intentional line breaks. The PR body's content must remain otherwise identical to the commit message body.
+2. **Create a draft PR** via the GitHub API. Use the first line of the final commit message as the PR title and the remainder as the PR body. Before submitting, adapt the body for a public PR-reviewer audience:
+   - **Reflow paragraphs** — Join hard-wrapped lines within each prose paragraph (which the `mrp-commit-message` skill produces at a ~72–80 character column) into a single long line so paragraphs render as flowing paragraphs rather than fixed-width column breaks. Preserve blank lines between paragraphs/sections, section headers, list items, code blocks, and other intentional line breaks.
+   - **Strip references to local task artifacts** — Remove any mentions of files that live only under `{task_dir}` and are not visible to PR reviewers (e.g. `task.md`, `research-report.md`, `design-spec.md`, `implementation-spec.md`, `verification-plan.md`, `verification-report.md`, `iterations.md`, `review-findings.md`, `user-review.txt`). Where such a mention provided context, replace it with a self-contained description of the underlying information rather than a pointer to the file.
+   - **Inline verification details** — Replace references to test case identifiers from the verification plan/report (e.g. `HP-1`, `EC-3`) with a concise description of what was actually tested. Reviewers should be able to understand the testing performed without access to the verification artifacts.
+
+   Aside from these adaptations, the PR body's content should remain faithful to the commit message body.
 3. **Record the PR** — Append `PR: #<number>` to `{task_dir}/task.md`.
 
 ## Step 5: Confirm
