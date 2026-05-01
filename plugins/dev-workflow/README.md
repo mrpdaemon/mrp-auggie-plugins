@@ -25,7 +25,7 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 
 | File | Created by | Description |
 |---|---|---|
-| `task.md` | `/new-task` or `/linear-task` | Task description (required — all other commands depend on it) |
+| `task.md` | `mrp-new-task` skill or `/linear-task` | Task description (required — all other commands depend on it) |
 | `research-report.md` | `/research-task` | Codebase research report |
 | `design-spec.md` | `/design-task` | High-level design document |
 | `implementation-spec.md` | `/spec-task` | Detailed implementation spec |
@@ -36,11 +36,11 @@ Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files b
 
 ## Workflow
 
-Either `/new-task` or `/linear-task` is used to create a task, then `/impl-task` implements it. The intermediate commands (`/research-task`, `/design-task`, `/spec-task`) are optional and can be skipped — for example, you can go directly from `/new-task` to `/impl-task`. When intermediate outputs exist, later commands will use them automatically; when they don't, the commands will explore the codebase on their own.
+A task is created either by invoking the `mrp-new-task` skill (asking the agent to "create a new dev task") or by running `/linear-task`, then `/impl-task` implements it. The intermediate commands (`/research-task`, `/design-task`, `/spec-task`) are optional and can be skipped — for example, you can go directly from task creation to `/impl-task`. When intermediate outputs exist, later commands will use them automatically; when they don't, the commands will explore the codebase on their own.
 
 ### Example workflows by task complexity
 
-Pick a workflow that matches the task's complexity. Each step assumes the task has already been created via `/new-task` or `/linear-task`.
+Pick a workflow that matches the task's complexity. Each step assumes the task has already been created via the `mrp-new-task` skill or `/linear-task`.
 
 - **Trivial** — `/design-task` → `/impl-task` → `/verify-task` → `/make-task-pr`
   - No dedicated research, impl spec, or verification plan. Those steps are lightweight enough to be folded in: `/design-task` does any needed research, `/impl-task` plans its own implementation, and `/verify-task` plans its own verification.
@@ -53,11 +53,11 @@ Pick a workflow that matches the task's complexity. Each step assumes the task h
 
 Some steps can be run in parallel to shorten the critical path. `/plan-task-verification` only depends on the design (and optionally research), so once `/design-task` has completed it can run concurrently with `/spec-task`, or even with `/impl-task` / `/parallel-impl-task` when the spec is skipped. Running them in separate agent sessions works well since their outputs (`verification-plan.md` vs. `implementation-spec.md` / source changes) don't overlap.
 
-### `/new-task`
+### `mrp-new-task` skill
 
-Create a new task directory and populate it with a task description.
+Triggered by natural-language requests such as "create a new dev task" or "start a new dev task". Bootstraps a new task end-to-end: infers an objectives-only task description from the conversation context (asking the user only when context is insufficient), proposes a task name for confirmation, creates the task directory, writes `task.md`, creates or checks out the `markp/{task_name}` git branch from the repository's main branch, sets the new task as the active task (renames the tmux window if running under tmux, and instructs the user to set `MRP_TASK` in their shell). The task description is intentionally limited to objectives — research notes, design alternatives, and implementation details are excluded since the later workflow steps produce them.
 
-- **Writes:** `task.md` (required) — the task description, provided by the user.
+- **Writes:** `task.md` (required) — the objectives-focused task description.
 
 ### `/linear-task`
 
