@@ -3,40 +3,46 @@ name: "mrp-linear-task"
 description: "Create a new dev task from a Linear issue"
 ---
 
-Load the `mrp-dev-task` skill and store `{tasks_dir}` as described in the skill. Then follow these steps:
+Load the `mrp-dev-task` skill and store `{tasks_dir}` as described in the skill. This command establishes both the active task and the active project, so do not treat a missing or empty `MRP_TASK` or `MRP_PROJECT` as an error while running it — the command resolves the project itself from the current repository. Then follow these steps:
 
-## Step 1: Determine the Linear issue
+## Step 1: Resolve the active project
+
+Follow the "Resolving the active project from the current repository" procedure described in the `mrp-dev-task` skill. After this step, `{project_name}` and `{project_dir}` are set.
+
+## Step 2: Determine the Linear issue
 
 If the user provided a Linear issue ID as an argument (e.g. `AU-1234`), use it. Otherwise, ask the user for the Linear issue ID.
 
 Store the resolved issue ID as `{issue_id}`.
 
-## Step 2: Read the Linear issue
+## Step 3: Read the Linear issue
 
 Look up the Linear issue `{issue_id}` and read its contents — title, description, comments, labels, and any other relevant metadata.
 
 Store the issue title as `{issue_title}` and the full issue contents as `{issue_contents}`.
 
-## Step 3: Determine the task name
+## Step 4: Determine the task name
 
 Based on the Linear issue title and description, come up with a task name following the task name guidance in the `mrp-dev-task` skill.
 
 Present the proposed task name to the user and ask for confirmation. Allow the user to alter the name if they prefer something different.
 
-Store the confirmed name as `{task_name}`. Set `{task_dir}` to `{tasks_dir}/{task_name}`.
+Store the confirmed name as `{task_name}`. Set `{task_dir}` to `{project_dir}/{task_name}`.
 
-## Step 3b: Write the task name to /tmp
+## Step 4b: Write the task name to /tmp
 
 Write the confirmed `{task_name}` to `/tmp/linear-task-name.md`. The file should contain only the task name, nothing else.
 
-## Step 4: Create the task directory
+## Step 5: Create the task directory
 
 Run:
 ```
 mkdir -p {task_dir}
 ```
 
-## Step 5: Populate task.md
+This also creates the `{project_dir}` parent if it does not yet exist.
+
+## Step 6: Populate task.md
 
 The target file is `{task_dir}/task.md`.
 
@@ -63,7 +69,7 @@ Do **not** simply copy-paste the issue contents. Synthesize them into a clear, a
 
 Write the synthesized description to `{task_dir}/task.md`.
 
-## Step 6: Confirm
+## Step 7: Confirm
 
-After the file is written, print the contents of the task.md file and confirm the task was created successfully.
+After the file is written, print the contents of the task.md file and confirm the task was created successfully. The confirmation should include the project name and the resolved task directory path, and instruct the user to set both `MRP_PROJECT={project_name}` and `MRP_TASK={task_name}` in their interactive shell so that subsequent shell tooling and other agent sessions pick up the same active project and task.
 

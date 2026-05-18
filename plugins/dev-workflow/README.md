@@ -12,16 +12,32 @@ export MRP_TASKS_DIR="$HOME/.augment/tasks"
 
 All commands and skills in this plugin read `MRP_TASKS_DIR` at runtime to locate task directories. If the variable is not set, the agent will stop and ask you to set it.
 
+Tasks are scoped to a project so that tasks from different repositories do not share a single flat namespace. The active project is identified by the `MRP_PROJECT` environment variable, which is set when a task is bootstrapped via the `mrp-new-task` skill or `/linear-task`; see [Project map](#project-map) below.
+
 ## Environment variables
 
 | Variable | Required | Description |
 |---|---|---|
 | `MRP_TASKS_DIR` | Yes | Root directory for task files |
+| `MRP_PROJECT` | Yes (for everyday commands) | Active project name. Resolved at task bootstrap from `~/.mrp-project-map`; the user is then instructed to export it. Required by every command except `mrp-new-task` and `/linear-task`, which resolve it themselves. |
 | `MRP_TASK` | No | Current task name (if unset, the agent will prompt you) |
+
+## Project map
+
+The mapping from repository paths to project names lives in `~/.mrp-project-map`. The file is quoted CSV with one mapping per line, `#` comments, blank lines ignored, and two fields per row: the repository path and the project name. Multiple paths may map to the same project name (e.g. for git worktrees of the same project).
+
+```
+# "repo_path", "project_name"
+"/home/mark/Code/mrp-agent-scripts", "agent-scripts"
+"/home/mark/Code/worktrees/mrp-feature", "agent-scripts"
+"/home/mark/Code/photo-pipeline", "photos"
+```
+
+The map is consulted only during task bootstrap (the `mrp-new-task` skill and `/linear-task`). Lookup is an exact string match between `git rev-parse --show-toplevel` and the first CSV field — no prefix matching, no symlink resolution. If the current repository root is not in the map, the bootstrap command stops and prints the exact CSV line you should add. Every other command relies on `MRP_PROJECT` being set in the shell and does not touch the map file.
 
 ## Task directory
 
-Each task has its own directory under `$MRP_TASKS_DIR/{task_name}/`. All files belonging to a task are stored in this directory. The workflow commands read from and write to the following files:
+Each task has its own directory under `$MRP_TASKS_DIR/{project_name}/{task_name}/`. All files belonging to a task are stored in this directory. The workflow commands read from and write to the following files:
 
 | File | Created by | Description |
 |---|---|---|
@@ -55,13 +71,13 @@ Some steps can be run in parallel to shorten the critical path. `/plan-task-veri
 
 ### `mrp-new-task` skill
 
-Triggered by natural-language requests such as "create a new dev task" or "start a new dev task". Bootstraps a new task end-to-end: infers an objectives-only task description from the conversation context (asking the user only when context is insufficient), proposes a task name for confirmation, creates the task directory, writes `task.md`, creates or checks out the `markp/{task_name}` git branch from the repository's main branch, sets the new task as the active task (renames the tmux window if running under tmux, and instructs the user to set `MRP_TASK` in their shell). The task description is intentionally limited to objectives — research notes, design alternatives, and implementation details are excluded since the later workflow steps produce them.
+Triggered by natural-language requests such as "create a new dev task" or "start a new dev task". Bootstraps a new task end-to-end: resolves the active project from the current repository via `~/.mrp-project-map` (erroring out with the exact CSV line to add when the repository is not yet in the map), infers an objectives-only task description from the conversation context (asking the user only when context is insufficient), proposes a task name for confirmation, creates the task directory under `$MRP_TASKS_DIR/{project_name}/`, writes `task.md`, creates or checks out the `markp/{task_name}` git branch from the repository's main branch, sets the new task and project as active (renames the tmux window if running under tmux, and instructs the user to set `MRP_PROJECT` and `MRP_TASK` in their shell). The task description is intentionally limited to objectives — research notes, design alternatives, and implementation details are excluded since the later workflow steps produce them.
 
 - **Writes:** `task.md` (required) — the objectives-focused task description.
 
 ### `/linear-task`
 
-Create a new task directory from a Linear issue. Looks up the issue, derives a task name, and synthesizes the issue contents into a task description.
+Create a new task directory from a Linear issue. Resolves the active project from the current repository via `~/.mrp-project-map`, looks up the issue, derives a task name, and synthesizes the issue contents into a task description. Like `mrp-new-task`, instructs the user to set `MRP_PROJECT` and `MRP_TASK` in their shell at the end.
 
 - **Writes:** `task.md` (required) — the task description, synthesized from the Linear issue.
 

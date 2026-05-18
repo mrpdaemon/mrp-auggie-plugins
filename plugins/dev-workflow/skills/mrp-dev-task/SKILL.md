@@ -9,9 +9,27 @@ We will be working on a specific development task. The name of the task we will 
 
 Files representing artifacts related to the current development task are stored in a task-specific directory. The root path storing all task directories is specified by the `MRP_TASKS_DIR` environment variable. If this variable is not set or is empty, there is an issue with the user's configuration, ask the user to fix it by setting this variable. Store the value of the tasks directory as {tasks_dir}.
 
+## Active Project
+
+Task directories are scoped to a project so that tasks from different repositories do not share a single flat namespace. Store the active project name as {project_name}, and set {project_dir} to `{tasks_dir}/{project_name}`.
+
+The active project is normally identified by the `MRP_PROJECT` environment variable, which is set in the user's shell when a task is bootstrapped. If `MRP_PROJECT` is not set or is empty, there is an issue with the user's configuration — ask the user to fix it by setting this variable (it is set as part of bootstrapping a task via the `mrp-new-task` skill or the `/linear-task` command). Take the value of `MRP_PROJECT` as `{project_name}`.
+
+Bootstrap entry points (the `mrp-new-task` skill and the `/linear-task` command) do not rely on `MRP_PROJECT` and instead resolve `{project_name}` from the current repository using the procedure described in the next subsection.
+
+### Resolving the active project from the current repository
+
+This procedure derives `{project_name}` from the current repository, not from `MRP_PROJECT`. Any existing value of `MRP_PROJECT` is ignored when this procedure is used. It is invoked by the bootstrap entry points; everyday commands do not use it.
+
+- Determine the current repository root (the top-level directory of the git repository containing the current working directory). If the current directory is not inside a git repository, stop and ask the user to run from inside the target repository.
+- Read the project map at `~/.mrp-project-map`. The file is quoted CSV with one mapping per line, `#` comments, blank lines ignored, and two fields per row: the repository path and the project name. Multiple paths may map to the same project name (e.g. for git worktrees of the same project). Lookup is an exact string match against the repository root — no prefix matching, no symlink resolution.
+- If the map file does not exist, or the repository root is not present in it, stop and instruct the user to add a line to `~/.mrp-project-map` for this repository. Show them the exact CSV line they should add, using the basename of the repository root as a suggested project name (e.g. `"/home/mark/Code/foo", "foo"`).
+
+Store the resolved project name as `{project_name}`, and set `{project_dir}` to `{tasks_dir}/{project_name}`.
+
 ## Task Artifact Files
 
-Artifacts related to the current development task are stored under the {tasks_dir}/{task_name} directory. Store this as {task_dir}. Each task directory may contain some of the following files. Refer to the contents of the appropriate file as needed to complete the user's requests.
+Artifacts related to the current development task are stored under the {project_dir}/{task_name} directory. Store this as {task_dir}. Each task directory may contain some of the following files. Refer to the contents of the appropriate file as needed to complete the user's requests.
 
 | File | Variable | Type | Description |
 |------|----------|------|-------------|
