@@ -16,7 +16,7 @@ Launch at least **two** `mrp-reviewer` sub-agents concurrently in a single batch
 Always dispatch exactly one reviewer with the entire set of changes as scope — never a slice. This reviewer's focus areas, all of which require a whole-change view, are:
 
 - Gaps between what `{task_description}` requires and what was actually implemented.
-- Verification plan and testing coverage — whether `{verification_plan}` / `{verification_report}` cover the changes adequately, and whether added or changed tests catch the failure modes introduced by this change.
+- Verification plan and testing coverage — whether `{verification_plan}` covers the changes adequately, and whether added or changed tests catch the failure modes introduced by this change. A `{verification_plan}` is expected to be in place; if it is missing, flag that as a finding. A `{verification_report}` may not yet exist (the review can run before verification); only assess it when present, and do not flag its absence.
 - Refactoring and simplification opportunities spanning the change as a whole.
 
 ### Code-focused reviewers — one or more
