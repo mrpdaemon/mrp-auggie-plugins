@@ -5,7 +5,7 @@ description: "Implement all code changes for the current dev task in parallel vi
 
 Load the `mrp-dev-task` skill. Store `{task_name}`, `{task_dir}`, and `{tasks_dir}`. Then load `{task_description}` (required), `{research_report}` (optional), `{design_spec}` (optional), and `{implementation_spec}` (optional) as described in the skill.
 
-If none of the optional files are available, perform your own codebase exploration as needed. Use `codebase-retrieval` for quick lookups, and launch `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`) for deeper exploration.
+If none of the optional files are available, perform your own codebase exploration as needed. Do quick lookups yourself, and launch `mrp-explorer` sub-agents (check your available tools for the one ending in `mrp-explorer`) for deeper exploration.
 
 You are the **coordinator** for this task. Your job is to decompose the work into a dependency graph and dispatch every implementation slice — whether part of a parallel wave or a standalone sequential step — to an `mrp-builder` sub-agent (check your available tools for the one ending in `mrp-builder`). You do not implement slice code yourself; your responsibilities are planning, dispatch, reconciliation, and the integration-level work in later steps.
 

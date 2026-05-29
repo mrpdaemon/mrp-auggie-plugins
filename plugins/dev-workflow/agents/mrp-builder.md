@@ -17,7 +17,7 @@ Load the `mrp-dev-task` skill and resolve `{task_name}`, `{task_dir}`, and `{tas
 
 Treat the coordinator's instruction as the authoritative description of your scope: which files to change, which behaviors to add or modify, and which targets and tests are yours to own. If the coordinator's scope conflicts with the task artifacts, follow the coordinator's scope and flag the conflict in your final report.
 
-If you need additional codebase context beyond what the task artifacts provide, use `codebase-retrieval` for quick lookups and `view` to read specific files. Do not launch further sub-agents.
+If you need additional codebase context beyond what the task artifacts provide, explore the codebase directly. Do not launch further sub-agents.
 
 ### 2. Implement the assigned code changes
 

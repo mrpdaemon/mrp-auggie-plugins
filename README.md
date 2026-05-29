@@ -1,13 +1,13 @@
-# mrp-auggie-plugins
+# claude-plugins
 
-mrpdaemon's personal auggie plugins.
+mrpdaemon's personal Claude plugins.
 
 ## Installation
 
 ```sh
-auggie plugin marketplace add mrpdaemon/mrp-auggie-plugins
+claude plugin marketplace add mrpdaemon/claude-plugins
 ```
 
 ## Available Plugins
 
-- **mrp-dev-workflow**: A plugin to facilitate a task based development workflow comprised of steps to investigate, design, spec out and implement code changes.
+- **dev-workflow**: A task-based development workflow plugin. Bootstraps a task (directory, branch, objectives) — optionally from a Linear issue — then drives it through research, design, spec, implementation (serial or parallel via sub-agents), verification planning and execution, code review, refactoring, addressing review feedback, and iteration on changes. Also handles commit messages and draft PR creation. Backed by explorer, builder, and reviewer sub-agents.

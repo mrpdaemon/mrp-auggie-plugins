@@ -64,7 +64,7 @@ If there are any **FAIL** results, ask the user whether they want to:
 
 If the user chooses **Diagnose and fix**:
 
-1. For each failed test case, investigate the root cause using `codebase-retrieval` and the failure details.
+1. For each failed test case, investigate the root cause using the failure details.
 2. Make the necessary code fixes.
 3. Re-run the failed test cases to confirm they now pass.
 4. Repeat until all previously failed test cases pass, or until the user decides to stop.
