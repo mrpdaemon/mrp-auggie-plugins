@@ -1,7 +1,7 @@
 ---
 name: mrp-explorer
 description: Explores codebases and gathers technical information to support planning under an orchestrator
-model: claude-sonnet-4-6
+model: claude-opus-4-8
 color: purple
 ---
 
