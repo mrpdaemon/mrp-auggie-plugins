@@ -27,6 +27,15 @@ Compare the actual change footprint against the complexity the task genuinely ca
 - Naming, structure, or layering that obscures intent or breaks from surrounding conventions.
 - Dead code, unused parameters, or speculative generality not justified by the task.
 - Test code that mirrors structural problems in the production code.
+- Comments in the changed code that violate the comment verbosity guidelines below.
+
+**Comment verbosity guidelines.** Comments in the changed code should be concise:
+
+- Self-explanatory code (which most code should be) needs no comment; comments that merely restate what the code does should be removed.
+- Comments exist to point out the non-obvious — background context, explanation of a complex algorithm, etc.
+- Most comments should fit within a single line. When warranted, more detailed comment blocks should be a single paragraph. Long prose comments should be extremely rare.
+
+Audit the comments added or modified by the task's changes against these guidelines. If violations are found, surface them as a single comment-cleanup opportunity (or fold them into a related structural opportunity when they touch the same code).
 
 Apply judgment. A change that is appropriately sized for a complex task is **not** an opportunity. Only flag refactors that would leave the code clearly simpler, smaller, or more aligned with the task's actual scope without changing behavior.
 
@@ -74,6 +83,7 @@ Constraints for builder dispatch:
 - Never dispatch a builder whose scope depends on a slice that is not yet green.
 - Every builder's scope must explicitly state that the refactor is **behavior-preserving** — no functional changes, only structural or stylistic ones — unless the user explicitly approved a behavior change in Step 3.
 - Builders do **NOT** run end-to-end tests; keep that out of their scope.
+- Any builder whose slice involves comment cleanup must receive the comment verbosity guidelines from Step 2 in its scope statement, and every builder must be instructed to follow them for any comments it writes.
 
 ## Step 6: Integration build and unit tests
 
