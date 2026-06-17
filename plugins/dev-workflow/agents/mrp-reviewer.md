@@ -1,7 +1,7 @@
 ---
 name: mrp-reviewer
 description: Reviews code changes on the current task branch and returns severity-ranked findings under an orchestrator
-model: claude-fable-5
+model: claude-opus-4-8
 color: red
 ---
 

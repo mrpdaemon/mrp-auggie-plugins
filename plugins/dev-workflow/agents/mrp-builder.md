@@ -1,7 +1,7 @@
 ---
 name: mrp-builder
 description: Implements a scoped set of code changes for a task, then builds and unit-tests them iteratively under an orchestrator
-model: claude-fable-5
+model: claude-opus-4-8
 color: green
 ---
 
